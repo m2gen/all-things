@@ -11,3 +11,8 @@ header {
   height: 75px;
   background-color: aqua;
 }
+
+#vote_button {
+  background-color: aliceblue;
+  cursor: pointer;
+}

@@ -13,14 +13,6 @@
 </div>
 @endif
 
-<!-- 検索 -->
-<div class="container mb-3">
-    <form action="/search" method="GET" class="text-end mt-3">
-        <input type="text" name="query" required>
-        <button type="submit">検索<i class="fa-solid fa-magnifying-glass ms-1"></i></button>
-    </form>
-</div>
-
 <div class="d-flex justify-content-center">
     <div class="container mb-5">
         <div class="mx-auto table-responsive">
@@ -70,6 +62,9 @@
                     <label class="form-label" for="vote">1人10票まで!</label>
                     <input type="range" name="vote" class="form-range" min="1" max="10" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
                     <span id="rangeValue-{{ $post->id }}"></span>
+
+                    <!-- originフィールドを追加 -->
+                    <input type="hidden" name="origin" value="top">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">投票する</button>
@@ -80,12 +75,3 @@
 </div>
 @endforeach
 @endsection
-
-@push('style')
-<style>
-    #vote_button {
-        background-color: aliceblue;
-        cursor: pointer;
-    }
-</style>
-@endpush

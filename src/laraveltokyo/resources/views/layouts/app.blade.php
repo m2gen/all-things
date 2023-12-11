@@ -73,6 +73,15 @@
         </div>
     </div>
 
+    <!-- 検索 -->
+    <div class="container mb-3">
+        <form action="/search" method="GET" class="text-end mt-3">
+            <input type="text" name="query" required>
+            <button type="submit" id="vote_button">検索<i class="fa-solid fa-magnifying-glass ms-1"></i></button>
+        </form>
+    </div>
+
+
     <main class=" min-vh-100 mt-4">
         @yield('content')
     </main>

@@ -13,13 +13,6 @@
 </style>
 @endpush
 
-<!-- 検索 -->
-<div class="container mb-3">
-    <form action="/search" method="GET" class="text-end mt-3">
-        <input type="text" name="query" required>
-        <button type="submit">検索<i class="fa-solid fa-magnifying-glass ms-1"></i></button>
-    </form>
-</div>
 
 
 <div class="container">
@@ -62,7 +55,11 @@
 
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
         <h4 id="scrollspyHeading1">タグ</h4>
-        <p>ああああああああああああああ</p>
+        <div class="mb-3">
+            @foreach ($posts->tags as $tag)
+            <a class="text-decoration-none" href="/tags/{{ trim($tag->name) }}">#{{ trim($tag->name) }}</a>
+            @endforeach
+        </div>
         <h4 id="scrollspyHeading2">概要</h4>
         <p id="overView">{{ $posts->overview }}</p>
         <h4 id="scrollspyHeading3">Third heading</h4>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 
 class HomeController extends Controller
 {
@@ -30,12 +31,18 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        $posts = new Post();
-        $posts->things = $request->things;
-        $posts->overview = $request->overview;
-        $posts->save();
+        $post = new Post;
+        $post->things = $request->things;
+        $post->overview = $request->overview;
+        $post->save();
 
-        return redirect()->route('details', ['things' => $posts->things]);
+        $tagNames = explode(',', $request->tags);
+        foreach ($tagNames as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $post->tags()->attach($tag->id);
+        }
+
+        return redirect()->route('details', ['things' => $post->things]);
     }
 
     public function showForm($things)
@@ -48,12 +55,21 @@ class HomeController extends Controller
     public function update(Request $request, $things)
     {
         $newThings = $request->input('things');
+        $post = Post::where('things', $things)->firstOrFail();
 
-        Post::where('things', $things)->update([
+        $post->update([
             'things' => $newThings,
             'overview' => $request->input('overview')
         ]);
 
-        return redirect()->route('details', ['things' => $newThings])->with('success', '良い更新だ。');
+        $post->tags()->detach();
+
+        $tagNames = explode(',', $request->tags);
+        foreach ($tagNames as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $post->tags()->attach($tag->id);
+        }
+
+        return redirect()->route('details', ['things' => $newThings]);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Vote;
+use App\Models\Tag;
+
 
 class HelloController extends Controller
 {
@@ -36,7 +38,16 @@ class HelloController extends Controller
         $vote->vote += $request->vote;
         $vote->save();
 
-        return redirect()->route('top')->with('success', '投票が完了しました');
+        // 元のページ情報を取得
+        $origin = $request->input('origin');
+
+        // リダイレクト先を決定
+        if ($origin == 'top') {
+            return redirect()->route('top')->with('success', '投票が完了しました');
+        } elseif ($origin == 'tag') {
+            $tagName = $request->input('tag_name');
+            return redirect()->route('tags.show', ['name' => $tagName])->with('success', '投票が完了しました');
+        }
     }
 
     // 検索
@@ -50,5 +61,17 @@ class HelloController extends Controller
         } else {
             return back()->with('error', '検索結果がないよ');
         }
+    }
+
+    public function showTag($name)
+    {
+        $tag = Tag::where('name', $name)->first();
+        $posts = $tag->posts;
+
+        $posts = $posts->sortByDesc(function ($post) {
+            return $post->votes->sum('vote');
+        });
+
+        return view('tag', ['posts' => $posts, 'tag' => $tag]);
     }
 }

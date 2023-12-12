@@ -45,6 +45,7 @@
 </div>
 
 
+
 <!-- モーダル -->
 @foreach($posts as $post)
 <!-- モーダルに一意のIDを割り当て -->
@@ -60,7 +61,7 @@
                 <div class="modal-body">
                     <p>現在{{ $post->votes->sum('vote') }}票</p>
                     <label class="form-label" for="vote">1人10票まで!</label>
-                    <input type="range" name="vote" class="form-range" min="1" max="10" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
+                    <input type="range" name="vote" class="form-range" min="1" max="10" value="5" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
                     <span id="rangeValue-{{ $post->id }}"></span>
 
                     <!-- originフィールドを追加 -->
@@ -75,3 +76,12 @@
 </div>
 @endforeach
 @endsection
+
+@push('style')
+<style>
+    #vote_button {
+        background-color: #f0f8ff;
+        cursor: pointer;
+    }
+</style>
+@endpush

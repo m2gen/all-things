@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Vote;
 use App\Models\Tag;
+use App\Models\Come;
 
 
 class HelloController extends Controller
@@ -14,7 +15,7 @@ class HelloController extends Controller
     // トップページに並び替えて変数を
     public function index()
     {
-        $posts = Post::with('votes')->get()->sortByDesc(function ($post) {
+        $posts = Post::with('votes')->get()->take(1000)->sortByDesc(function ($post) {
             return $post->votes->sum('vote');
         });
 
@@ -26,8 +27,9 @@ class HelloController extends Controller
     {
         $posts = Post::where('things', $things)->firstOrFail();
         $votes = Vote::where('post_id', $posts->id)->get();
+        $comes = $posts->comes()->orderBy('created_at', 'desc')->take(500)->get();
 
-        return view('details', ['posts' => $posts, 'votes' => $votes]);
+        return view('details', ['posts' => $posts, 'votes' => $votes, 'comes' => $comes]);
     }
 
     //投票と更新
@@ -63,6 +65,7 @@ class HelloController extends Controller
         }
     }
 
+    // タグページの表示
     public function showTag($name)
     {
         $tag = Tag::where('name', $name)->first();
@@ -73,5 +76,20 @@ class HelloController extends Controller
         });
 
         return view('tag', ['posts' => $posts, 'tag' => $tag]);
+    }
+
+    // コメント
+    public function commentStore(Request $request, $things)
+    {
+        $post = Post::where('things', $things)->first();
+
+        $comes = new Come;
+        $comes->user_name = $request->user_name ?: '匿名さん';
+        $comes->content = $request->content;
+        $comes->save();
+
+        $post->comes()->attach($comes->id);
+
+        return redirect()->route('details', ['things' => $post->things])->with('success', '書き込みました。');
     }
 }

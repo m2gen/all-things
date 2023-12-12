@@ -20,4 +20,9 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function comes()
+    {
+        return $this->belongsToMany(Come::class, 'come_post', 'post_id', 'come_id');
+    }
 }

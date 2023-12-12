@@ -13,7 +13,6 @@
 </div>
 @endif
 
-
 <div class="container mb-4">
     <h3><span class="text-primary h2">#{{ $tag->name }}</span> ランキング</h3>
 </div>
@@ -86,7 +85,7 @@
 @push('style')
 <style>
     #vote_button {
-        background-color: aliceblue;
+        background-color: #f0f8ff;
         cursor: pointer;
     }
 </style>

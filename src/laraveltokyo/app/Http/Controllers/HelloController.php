@@ -56,10 +56,10 @@ class HelloController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $posts = Post::where('things', 'LIKE', "%{$query}%")->first();
+        $posts = Post::where('things', 'LIKE', "%{$query}%")->orderBy('updated_at', 'desc')->get();
 
-        if ($posts) {
-            return redirect()->route('details', ['things' => $posts->things]);
+        if (!empty($posts)) {
+            return view('search_results', ['posts' => $posts]);
         } else {
             return back()->with('error', '検索結果がないよ');
         }

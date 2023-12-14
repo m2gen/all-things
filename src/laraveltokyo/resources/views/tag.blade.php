@@ -21,7 +21,7 @@
     <div class="container mb-5">
         <div class="mx-auto table-responsive">
             <table class="table table-bordered fs-6">
-                <thead class="table-info">
+                <thead style="background-color: #007C8A;">
                     <tr class="text-center">
                         <th>順位</th>
                         <th>名前</th>
@@ -64,7 +64,7 @@
                 <div class="modal-body">
                     <p>現在{{ $post->votes->sum('vote') }}票</p>
                     <label class="form-label" for="vote">1人10票まで!</label>
-                    <input type="range" name="vote" class="form-range" min="1" max="10" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
+                    <input type="range" name="vote" class="form-range" min="1" max="10" value="5" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
                     <span id="rangeValue-{{ $post->id }}"></span>
 
                     <!-- originフィールドを追加 -->

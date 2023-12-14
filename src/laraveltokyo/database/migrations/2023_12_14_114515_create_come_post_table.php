@@ -10,8 +10,8 @@ class CreateComePostTable extends Migration
     {
         Schema::create('come_post', function (Blueprint $table) {
             $table->id();
-            $table->integer('come_id');
-            $table->integer('post_id');
+            $table->foreignId('come_id')->constrained('comes')->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
     @hasSection('title')
     <title>@yield('title')</title>
     @else
-    <title>{{ config('app.name', '日本人ランキング') }}</title>
+    <title>{{ config('app.name', '万物ランキング') }}</title>
     @endif
     <script src="https://kit.fontawesome.com/ddbfae1daa.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -23,54 +23,65 @@
 
 <body>
 
-    <header class="d-flex align-items-center justify-content-center">
-        <a class="h1 text-decoration-none" href="{{ url('/') }}">万物ランキング</a>
+    <header class="py-3">
+        <div class="container">
+            <div class="text-start mb-3">
+                <a class="h1 text-decoration-none" href="{{ url('/') }}">万物ランキング</a>
+            </div>
+            <div class="text-end">
+                <form class="d-flex mb-3 w-100" action="/search" method="GET">
+                    <input class="form-control me-2 border border-dark flex-grow-1" type="search" placeholder="検索" aria-label="Search" name="query" required>
+                    <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                <button class="btn btn-dark text-nowrap w-25" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">メニュー</button>
+            </div>
+        </div>
     </header>
 
-    <nav class="navbar navbar-expand-lg bg-dark text-center py-1">
-        <div class="container">
-            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link text-white text-decoration-none" href="{{ url('/') }}">トップ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white text-decoration-none mx-5" href="{{ route('article.show') }}">新しい万物</a>
-                    </li>
-                    @guest
-                    @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link text-white text-decoration-none" href="{{ route('login') }}">{{ __('ログイン') }}</a>
-                    </li>
-                    @endif
-                    @else
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white text-decoration-none" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('ログアウト') }}</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                        </div>
-                    </li>
-                    @endguest
-                </ul>
-            </div>
-            <form class="d-flex" action="/search" method="GET">
-                <input class="form-control me-2" type="search" placeholder="検索" aria-label="Search" name="query" required>
-                <button class="btn btn-outline-light" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">メニュー</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-    </nav>
+        <div class="offcanvas-body">
+            <form class="d-flex mb-3" action="/search" method="GET">
+                <input class="form-control me-2 border border-dark flex-grow-1" type="search" placeholder="検索" aria-label="Search" name="query" required>
+                <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <ul class="h5">
+                <li class="mb-2">
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ url('/') }}">トップ</a>
+                </li>
+                <li class="mb-2">
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('article.show') }}">新しい万物</a>
+                </li>
+                @guest
+                @if (Route::has('login'))
+                <li class="mb-2">
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('login') }}">{{ __('ログイン') }}</a>
+                </li>
+                @endif
+                @else
+                <li class="mb-2 nav-item dropdown">
+                    <a class="nav-link dropdown-toggle link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item fw-bold" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('ログアウト') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+                    </div>
+                </li>
+                @endguest
+            </ul>
+        </div>
+    </div>
 
     <main class="min-vh-100 mt-5">
         @yield('content')
     </main>
 
-    <footer class="footer" style="background-color: aqua;">
+    <footer>
         <div class="container-fluid text-center">
             <p class="mb-0">2023 万物ランキング</p>
         </div>

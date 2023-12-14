@@ -12,6 +12,17 @@
 </div>
 @endif
 
+@if ($errors->any())
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type=" button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 <div class="container">
 
     <div class="row">
@@ -77,7 +88,7 @@
                             </div>
                         </form>
                         @foreach($comes as $come)
-                        <div class="border-top border-info pt-2">
+                        <div class="pt-2" style="border-top: solid 1px #007C8A;">
                             <div class="row" style="font-size: 13px;">
                                 <div class="col">
                                     <span>{{ $loop->count - $loop->iteration + 1 }}.</span>

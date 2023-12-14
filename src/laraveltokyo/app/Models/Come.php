@@ -9,7 +9,7 @@ class Come extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'content'];
+    protected $fillable = ['user_name', 'content'];
 
     public function posts()
     {

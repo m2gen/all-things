@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\Post;
 use App\Models\Tag;
 
@@ -29,7 +30,7 @@ class HomeController extends Controller
         return view('article');
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $post = new Post;
         $post->things = $request->things;
@@ -52,8 +53,9 @@ class HomeController extends Controller
         return view('edit', ['posts' => $posts]);
     }
 
-    public function update(Request $request, $things)
+    public function update(UpdateRequest $request, $things)
     {
+
         $newThings = $request->input('things');
         $post = Post::where('things', $things)->firstOrFail();
 
@@ -66,6 +68,7 @@ class HomeController extends Controller
 
         $tagNames = explode(',', $request->tags);
         foreach ($tagNames as $tagName) {
+            $tagName = trim($tagName);
             $tag = Tag::firstOrCreate(['name' => $tagName]);
             $post->tags()->attach($tag->id);
         }

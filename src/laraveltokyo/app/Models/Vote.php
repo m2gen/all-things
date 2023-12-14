@@ -9,7 +9,7 @@ class Vote extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vote'];
+    protected $fillable = ['vote', 'post_id'];
 
     public function post()
     {

@@ -8,6 +8,9 @@ body {
 }
 
 header {
-  height: 75px;
-  background-color: aqua;
+  background-color: #e6b422;
+}
+
+footer {
+  background-color: #e6b422;
 }

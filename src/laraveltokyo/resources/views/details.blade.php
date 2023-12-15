@@ -81,7 +81,7 @@
                                 <input class="w-25" type="text" name="user_name" placeholder="名前(任意)">
                             </div>
                             <div class="mt-1">
-                                <textarea class="w-100" name="content" rows="4"></textarea>
+                                <textarea class="w-100" name="content" rows="4">{{ old('content') }}</textarea>
                             </div>
                             <div class="mt-3 text-center">
                                 <button type="submit" class="btn btn-dark fw-bold">書き込む</button>

@@ -48,7 +48,7 @@ class HomeController extends Controller
 
     public function showForm($things)
     {
-        $posts = Post::where('things', $things)->firstOrFail();
+        $posts = Post::where('things', $things)->first();
 
         return view('edit', ['posts' => $posts]);
     }

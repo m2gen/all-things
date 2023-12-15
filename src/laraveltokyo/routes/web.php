@@ -20,6 +20,7 @@ Route::post('/details/{things}', [HelloController::class, 'commentStore'])->name
 Route::get('/search', [HelloController::class, 'search']);
 // タグページ
 Route::get('/tags/{name}', [HelloController::class, 'showTag'])->name('tags.show');
+Route::get('/popTags', [HelloController::class, 'popTagShow'])->name('popTag.show');
 
 // ログインしないと入れない
 // 新規万物登録

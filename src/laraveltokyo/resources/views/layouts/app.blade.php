@@ -54,12 +54,18 @@
                     <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ url('/') }}">トップ</a>
                 </li>
                 <li class="mb-2">
-                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('article.show') }}">新しい万物</a>
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('article.show') }}">万物新規作成</a>
+                </li>
+                <li class="mb-2">
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('popTag.show') }}">人気のタグ一覧</a>
                 </li>
                 @guest
                 @if (Route::has('login'))
                 <li class="mb-2">
                     <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('login') }}">{{ __('ログイン') }}</a>
+                </li>
+                <li class="mb-2">
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('register') }}">{{ __('新規登録') }}</a>
                 </li>
                 @endif
                 @else

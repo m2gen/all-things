@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use App\Models\Post;
 use App\Models\Vote;
 use App\Models\Tag;
@@ -15,7 +16,7 @@ class HelloController extends Controller
     // トップページに並び替えて変数を
     public function index()
     {
-        $posts = Post::with('votes')->get()->take(1000)->sortByDesc(function ($post) {
+        $posts = Post::with('votes')->get()->take(500)->sortByDesc(function ($post) {
             return $post->votes->sum('vote');
         });
 
@@ -57,15 +58,15 @@ class HelloController extends Controller
     {
         $query = $request->input('query');
         $posts = Post::where('things', 'LIKE', "%{$query}%")->orderBy('updated_at', 'desc')->get();
+        $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->take(200)->get();
+
 
         if (!empty($posts)) {
-            return view('search_results', ['posts' => $posts]);
-        } else {
-            return back()->with('error', '検索結果がないよ');
+            return view('search_results', ['posts' => $posts, 'tagCounts' => $tagCounts]);
         }
     }
 
-    // タグページの表示
+    // タグランキングページの表示
     public function showTag($name)
     {
         $tag = Tag::where('name', $name)->first();
@@ -73,13 +74,21 @@ class HelloController extends Controller
 
         $posts = $posts->sortByDesc(function ($post) {
             return $post->votes->sum('vote');
-        });
+        })->take(500);
 
         return view('tag', ['posts' => $posts, 'tag' => $tag]);
     }
 
+    // 人気タグ
+    public function popTagShow()
+    {
+        $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->paginate(50);
+
+        return view('popTag', ['tagCounts' => $tagCounts]);
+    }
+
     // コメント
-    public function commentStore(Request $request, $things)
+    public function commentStore(CommentRequest $request, $things)
     {
         $post = Post::where('things', $things)->first();
 

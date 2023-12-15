@@ -13,6 +13,7 @@
 </div>
 @endif
 
+
 <div class="d-flex justify-content-center">
     <div class="container mb-5">
         <div class="mx-auto table-responsive">
@@ -75,6 +76,7 @@
     </div>
 </div>
 @endforeach
+
 @endsection
 
 @push('style')

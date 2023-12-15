@@ -13,6 +13,7 @@
 </div>
 @endif
 
+
 <div class="container mb-4">
     <h3><span class="text-primary h2">#{{ $tag->name }}</span> ランキング</h3>
 </div>
@@ -21,7 +22,7 @@
     <div class="container mb-5">
         <div class="mx-auto table-responsive">
             <table class="table table-bordered fs-6">
-                <thead style="background-color: #007C8A;">
+                <thead class="table-info">
                     <tr class="text-center">
                         <th>順位</th>
                         <th>名前</th>

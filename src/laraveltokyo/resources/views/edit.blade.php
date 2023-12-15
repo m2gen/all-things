@@ -16,6 +16,7 @@
 <div class="container mt-4">
     <form action="{{ route('update', ['things' => $posts->things]) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="mb-3">
             <label for="things" class="mb-3 h4">登録する万物</label>
             <input class="form-control" type="text" name="things" value="{{ $posts->things }}" maxlength="20">

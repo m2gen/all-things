@@ -27,4 +27,4 @@ Route::get('/article', [HomeController::class, 'show'])->name('article.show');
 Route::post('/article', [HomeController::class, 'store'])->name('article.store');
 // 万物編集と更新
 Route::get('/edit/{things}', [HomeController::class, 'showForm'])->name('edit');
-Route::post('/update/{things}', [HomeController::class, 'update'])->name('update');
+Route::put('/update/{things}', [HomeController::class, 'update'])->name('update');

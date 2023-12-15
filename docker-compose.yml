@@ -7,7 +7,7 @@ services:
   app:
 
     ports:
-      - "2222:80"
+      - "3333:80"
 
     build: ./docker/app
 
@@ -52,7 +52,7 @@ services:
       - db
 
     ports:
-      - 2223:80
+      - 3334:80
 
     volumes:
       - ./docker/phpmyadmin/sessions:/sessions
@@ -63,4 +63,4 @@ services:
   mailcatcher:
     image: schickling/mailcatcher
     ports:
-      - 2208:1080
+      - 3335:1080

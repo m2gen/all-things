@@ -3,17 +3,26 @@
 @section('content')
 
 <!-- 投票成功通知 -->
+@if(session('voteSuccess'))
+<div class="container">
+    <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+        <strong>投票が完了しました。</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
 @if(session('success'))
 <div class="container">
     <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-        <strong>書き込みました。</strong>
+        <strong>コメントしました。</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
 @endif
 
-<div class="container">
 
+<div class="container">
+    <!-- 万物見出しなど -->
     <div class="row">
         <div class="col-lg-10 mx-auto">
             <div class="bg-light px-3 mb-3">
@@ -28,6 +37,9 @@
                             <a href="/edit/{{ $posts->things }}">
                                 <button class="btn btn-outline-info fw-bold">編集</button>
                             </a>
+                            <button class="btn btn-outline-dark fw-bold" id="vote_button" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $posts->id }}">
+                                投票
+                            </button>
                         </div>
                     </div>
                     <div class="w-100">
@@ -35,7 +47,32 @@
                     </div>
                 </div>
             </div>
-
+            <!-- モーダル -->
+            <div class="modal fade" id="staticBackdrop-{{ $posts->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-{{ $posts->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel-{{ $posts->id }}">{{ $posts->things }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('vote.store', ['id' => $posts->id]) }}" method="post">
+                            @csrf
+                            <div class="modal-body">
+                                <p>現在{{ $posts->votes->sum('vote') }}票</p>
+                                <label class="form-label" for="vote">1人10票まで!</label>
+                                <input type="range" name="vote" class="form-range" min="1" max="10" value="5" id="voteRange-{{ $posts->id }}" oninput="updateValue(this.value, '{{ $posts->id }}')">
+                                <span id="rangeValue-{{ $posts->id }}"></span>
+                                <input type="hidden" name="origin" value="details">
+                                <input type="hidden" name="post_things" value="{{ $posts->things }}">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">投票する</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- 概要・コメント遷移ボタン -->
             <nav id="navbar-example2" class="navbar bg-body-tertiary px-3">
                 <ul class="nav nav-pills ms-auto">
                     <li class="nav-item">
@@ -46,7 +83,7 @@
                     </li>
                 </ul>
             </nav>
-
+            <!-- タグ・概要 -->
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="1">
                 <div class="mb-5">
                     <div class="mb-3">

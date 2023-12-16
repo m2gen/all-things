@@ -60,7 +60,7 @@
             <form action="{{ route('vote.store', ['id' => $post->id]) }}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <p>現在{{ $post->votes->sum('vote') }}票</p>
+                    <p>現在{{ number_format($post->votes->sum('vote')) }}票</p>
                     <label class="form-label" for="vote">1人10票まで!</label>
                     <input type="range" name="vote" class="form-range" min="1" max="10" value="5" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
                     <span id="rangeValue-{{ $post->id }}"></span>

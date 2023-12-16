@@ -12,7 +12,7 @@ Auth::routes();
 // トップページ表示
 Route::get('/', [HelloController::class, 'index'])->name('top');
 // 投票加算
-Route::post('/vote/{id}', [HelloController::class, 'storeOrUpdate'])->name('vote.store');
+Route::post('/vote/{id}', [HelloController::class, 'voteStore'])->name('vote.store');
 // 万物詳細ページ表示
 Route::get('/details/{things}', [HelloController::class, 'show'])->name('details');
 Route::post('/details/{things}', [HelloController::class, 'commentStore'])->name('comment');

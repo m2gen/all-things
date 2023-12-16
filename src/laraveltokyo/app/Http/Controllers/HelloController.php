@@ -34,7 +34,7 @@ class HelloController extends Controller
     }
 
     //投票と更新
-    public function storeOrUpdate(Request $request, $id)
+    public function voteStore(Request $request, $id)
     {
         $post = Post::find($id);
         $vote = $post->votes()->firstOrNew([]);
@@ -50,6 +50,9 @@ class HelloController extends Controller
         } elseif ($origin == 'tag') {
             $tagName = $request->input('tag_name');
             return redirect()->route('tags.show', ['name' => $tagName])->with('success', '投票が完了しました');
+        } elseif ($origin == 'details') {
+            $postThings = $request->input('post_things');
+            return redirect()->route('details', ['things' => $postThings])->with('voteSuccess', '投票が完了しました');
         }
     }
 
@@ -57,7 +60,7 @@ class HelloController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $posts = Post::where('things', 'LIKE', "%{$query}%")->orderBy('updated_at', 'desc')->get();
+        $posts = Post::where('things', 'LIKE', "%{$query}%")->orderBy('updated_at', 'desc')->take(100)->get();
         $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->take(200)->get();
 
 

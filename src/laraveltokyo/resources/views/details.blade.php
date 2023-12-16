@@ -12,17 +12,6 @@
 </div>
 @endif
 
-@if ($errors->any())
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-    <button type=" button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
-
 <div class="container">
 
     <div class="row">
@@ -42,7 +31,7 @@
                         </div>
                     </div>
                     <div class="w-100">
-                        <p class="display-2 fw-bold">{{ $posts->things }}</p>
+                        <p class="display-2 fw-bold">{{ trim($posts->things) }}</p>
                     </div>
                 </div>
             </div>
@@ -63,7 +52,7 @@
                     <div class="mb-3">
                         <h4>タグ</h4>
                         @foreach ($posts->tags as $tag)
-                        <a class="text-decoration-none fw-bold" href="/tags/{{ trim($tag->name) }}">#{{ trim($tag->name) }}</a>
+                        <a class="text-decoration-none fw-bold" href="/tags/{{ str_replace(array(" ", "　"), "", $tag->name) }}">#{{ str_replace(array(" ", "　"), "", $tag->name) }}</a>
                         @endforeach
                     </div>
                     <div class="mb-3">
@@ -78,10 +67,20 @@
                         <form action="{{ route('comment', ['things' => $posts->things]) }}" method="post" class="mb-5">
                             @csrf
                             <div class="mt-1">
-                                <input class="w-25" type="text" name="user_name" placeholder="名前(任意)">
+                                <input class="w-25 {{ $errors->has('user_name') ? 'is-invalid' : '' }}" type="text" name="user_name" placeholder="名前(任意)">
+                                @if($errors->has('user_name'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('user_name') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="mt-1">
-                                <textarea class="w-100" name="content" rows="4">{{ old('content') }}</textarea>
+                                <textarea class="w-100 {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" rows="4">{{ old('content') }}</textarea>
+                                @if($errors->has('content'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('content') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="mt-3 text-center">
                                 <button type="submit" class="btn btn-dark fw-bold">書き込む</button>

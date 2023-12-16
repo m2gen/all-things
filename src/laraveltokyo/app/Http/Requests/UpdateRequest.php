@@ -6,13 +6,37 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
+    public function authorize()
+    {
+        return true;
+    }
+
     public function rules()
     {
-        return [
-            'things' => 'required|max:20',
-            'tags' => 'required',
-            'overview' => 'nullable|max:3000',
+        $validate = [];
+
+        $validate += [
+            'things' => [
+                'required',
+                'max:20'
+            ]
         ];
+
+        $validate += [
+            'tags' => [
+                'required',
+                'max:20'
+            ]
+        ];
+
+        $validate += [
+            'overview' => [
+                'nullable',
+                'max:3000'
+            ]
+        ];
+
+        return $validate;
     }
 
     public function messages()
@@ -22,7 +46,7 @@ class UpdateRequest extends FormRequest
             'things.max' => "20文字以内でお願いします",
             'things.unique' => "既に登録済みの万物です",
             'tags.required' => "タグは必須項目です",
-            'tags.regex' => "タグの空白を削除してください",
+            'tags.max' => "20文字以内でお願いします",
             'overview' => "3000字以内でお願いします",
         ];
     }

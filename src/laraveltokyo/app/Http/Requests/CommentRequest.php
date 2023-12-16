@@ -8,10 +8,22 @@ class CommentRequest extends FormRequest
 {
     public function rules()
     {
-        return [
-            'user_name' => 'nullable|max:20',
-            'content' => 'required|max:500',
+        $validate = [];
+
+        $validate += [
+            'user_name' => [
+                'max:20'
+            ]
         ];
+
+        $validate += [
+            'content' => [
+                'required',
+                'max:500'
+            ]
+        ];
+
+        return $validate;
     }
 
     public function messages()

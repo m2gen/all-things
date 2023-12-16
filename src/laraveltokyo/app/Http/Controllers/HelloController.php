@@ -90,6 +90,8 @@ class HelloController extends Controller
     // コメント
     public function commentStore(CommentRequest $request, $things)
     {
+        $request->validate($request->rules());
+
         $post = Post::where('things', $things)->first();
 
         $comes = new Come;

@@ -15,7 +15,7 @@
 
 
 <div class="container mb-4">
-    <h3><span class="text-primary h2">#{{ $tag->name }}</span> ランキング</h3>
+    <h3><span class="text-primary h2">#{{ trim($tag->name) }}</span> ランキング</h3>
 </div>
 
 <div class="d-flex justify-content-center">

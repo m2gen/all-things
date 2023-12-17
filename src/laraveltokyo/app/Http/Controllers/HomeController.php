@@ -35,7 +35,7 @@ class HomeController extends Controller
         $request->validate($request->rules());
 
         $post = new Post;
-        $post->things = $request->things;
+        $post->things = str_replace(array(" ", "　"), "", $request->things);
         $post->overview = $request->overview;
         $post->save();
 

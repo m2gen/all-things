@@ -3,38 +3,47 @@
 @section('content')
 
 <!-- 投票成功通知 -->
-@if(session('voteSuccess'))
-<div class="container">
-    <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-        <strong>投票が完了しました。</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</div>
-@endif
-@if(session('success'))
-<div class="container">
-    <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-        <strong>コメントしました。</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+@if(Session::has('flashMessage'))
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(window).on('load', function() {
+        $('#modal_box').modal('show');
+    });
+</script>
+
+<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="label1">通知</h5>
+            </div>
+            <div class="modal-body">
+                {{ session('flashMessage') }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">閉じる</button>
+            </div>
+        </div>
     </div>
 </div>
 @endif
 
 
-<div class="container">
+<div class="container mb-5">
     <!-- 万物見出しなど -->
     <div class="row">
-        <div class="col-lg-10 mx-auto">
-            <div class="bg-light px-3 mb-3">
+        <div class="col-lg-9 mx-auto">
+            <div class="bg-light mb-3">
                 <div class="align-items-center">
-                    <div class="row mb-4 w-100">
+                    <div class="row mb-4">
                         @foreach($votes as $vote)
                         <div class="col text-start">
                             <p class="h4">{{ number_format($vote->vote) }}票</p>
                         </div>
                         @endforeach
                         <div class="col text-end">
-                            <a href="/edit/{{ $posts->things }}">
+                            <a class="text-decoration-none" href="/edit/{{ $posts->things }}">
                                 <button class="btn btn-outline-info fw-bold">編集</button>
                             </a>
                             <button class="btn btn-outline-dark fw-bold" id="vote_button" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $posts->id }}">
@@ -43,10 +52,18 @@
                         </div>
                     </div>
                     <div class="w-100">
-                        <p class="display-2 fw-bold">{{ trim($posts->things) }}</p>
+                        <p class="display-2 fw-bold">{{ str_replace(array(" ", "　"), "", $posts->things) }}</p>
                     </div>
                 </div>
             </div>
+            <ul class="small text-end list-unstyled">
+                <li>
+                    作成日：{{ $posts->created_at->format('Y-m-d') }}
+                </li>
+                <li>
+                    更新日：{{ $posts->updated_at->format('Y-m-d') }}
+                </li>
+            </ul>
             <!-- モーダル -->
             <div class="modal fade" id="staticBackdrop-{{ $posts->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-{{ $posts->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -73,16 +90,9 @@
                 </div>
             </div>
             <!-- 概要・コメント遷移ボタン -->
-            <nav id="navbar-example2" class="navbar bg-body-tertiary px-3">
-                <ul class="nav nav-pills ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#scrollspyHeading1">概要</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#scrollspyHeading2">コメント</a>
-                    </li>
-                </ul>
-            </nav>
+            <div class="text-end h5">
+                <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#scrollspyHeading1">コメント</a>
+            </div>
             <!-- タグ・概要 -->
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="1">
                 <div class="mb-5">
@@ -93,14 +103,14 @@
                         @endforeach
                     </div>
                     <div class="mb-3">
-                        <h4 id="scrollspyHeading1">概要</h4>
-                        <p id="space">{{ $posts->overview }}</p>
+                        <h4>概要</h4>
+                        <p>{!! nl2br(e($posts->overview)) !!}</p>
                     </div>
                 </div>
                 <!-- コメント -->
                 <div class="row mb-3">
                     <div class="col-lg-9 mx-auto">
-                        <p class="h4" id="scrollspyHeading2">コメント</p>
+                        <p class="h4" id="scrollspyHeading1">コメント</p>
                         <form action="{{ route('comment', ['things' => $posts->things]) }}" method="post" class="mb-5">
                             @csrf
                             <div class="mt-1">
@@ -132,7 +142,7 @@
                                 </div>
                                 <span class="col text-end">{{ $come->created_at }}</span>
                             </div>
-                            <p class="fs-6 1h-1 pt-2" id="space" style="font-size: 22px;">{{ $come->content }}</p>
+                            <p class="fs-6 1h-1 pt-2" id="space" style="font-size: 22px;">{!! nl2br(e($come->content)) !!}</p>
                         </div>
                         @endforeach
                     </div>
@@ -142,11 +152,3 @@
     </div>
 </div>
 @endsection
-
-@push('style')
-<style>
-    #space {
-        white-space: pre-wrap;
-    }
-</style>
-@endpush

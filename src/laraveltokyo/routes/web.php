@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
-use Faker\Guesser\Name;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
 
-// ログインなしでオッケー
 // トップページ表示
 Route::get('/', [HelloController::class, 'index'])->name('top');
 // 投票加算
@@ -21,11 +20,15 @@ Route::get('/search', [HelloController::class, 'search']);
 // タグページ
 Route::get('/tags/{name}', [HelloController::class, 'showTag'])->name('tags.show');
 Route::get('/popTags', [HelloController::class, 'popTagShow'])->name('popTag.show');
-
-// ログインしないと入れない
 // 新規万物登録
 Route::get('/article', [HomeController::class, 'show'])->name('article.show');
 Route::post('/article', [HomeController::class, 'store'])->name('article.store');
 // 万物編集と更新
 Route::get('/edit/{things}', [HomeController::class, 'showForm'])->name('edit');
 Route::put('/update/{things}', [HomeController::class, 'update'])->name('update');
+// 問い合わせページ表示
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+//確認ページ
+Route::post('/contact/confirm', [ContactController::class, 'confirm'])->name('confirm');
+//送信完了ページ
+Route::post('/contact/thanks', [ContactController::class, 'send'])->name('send');

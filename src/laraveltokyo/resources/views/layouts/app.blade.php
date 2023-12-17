@@ -70,7 +70,7 @@
                 @endif
                 @else
                 <li class="mb-2 nav-item dropdown">
-                    <a class="nav-link dropdown-toggle link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a class="nav-link dropdown-toggle link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -88,8 +88,25 @@
     </main>
 
     <footer>
-        <div class="container-fluid text-center">
-            <p class="mb-0">2023 万物ランキング</p>
+        <div class="container-fluid bg-dark text-white py-4">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6 class="mb-3">2023 万物ランキング</h6>
+                        <p>最新のランキング情報をチェックしましょう。</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="mb-3">リンク</h6>
+                        <a href="{{ route('contact.index') }}" class="text-white">お問い合わせ</a><br>
+                        <!-- 他のリンクをここに追加 -->
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="mb-3">フォローする</h6>
+                        <p>私たちの最新の更新を見逃さないでください。</p>
+                        <!-- SNSリンクをここに追加 -->
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 

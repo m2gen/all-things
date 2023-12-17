@@ -46,13 +46,13 @@ class HelloController extends Controller
 
         // リダイレクト先を決定
         if ($origin == 'top') {
-            return redirect()->route('top')->with('success', '投票が完了しました');
+            return redirect()->route('top')->with('flashMessage', '投票できました！');
         } elseif ($origin == 'tag') {
             $tagName = $request->input('tag_name');
-            return redirect()->route('tags.show', ['name' => $tagName])->with('success', '投票が完了しました');
+            return redirect()->route('tags.show', ['name' => $tagName])->with('flashMessage', '投票できました！');
         } elseif ($origin == 'details') {
             $postThings = $request->input('post_things');
-            return redirect()->route('details', ['things' => $postThings])->with('voteSuccess', '投票が完了しました');
+            return redirect()->route('details', ['things' => $postThings])->with('flashMessage', '投票できました！');
         }
     }
 
@@ -104,6 +104,6 @@ class HelloController extends Controller
 
         $post->comes()->attach($comes->id);
 
-        return redirect()->route('details', ['things' => $post->things])->with('success', '書き込みました。');
+        return redirect()->route('details', ['things' => $post->things])->with('flashMessage', 'コメント完了！');
     }
 }

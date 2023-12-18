@@ -37,11 +37,9 @@
             <div class="bg-light mb-3">
                 <div class="align-items-center">
                     <div class="row mb-4">
-                        @foreach($votes as $vote)
                         <div class="col text-start">
-                            <p class="h4">{{ number_format($vote->vote) }}票</p>
+                            <p class="h4">{{ number_format($votes->sum('vote')) }}票</p>
                         </div>
-                        @endforeach
                         <div class="col text-end">
                             <a class="text-decoration-none" href="/edit/{{ $posts->things }}">
                                 <button class="btn btn-outline-info fw-bold">編集</button>
@@ -52,7 +50,7 @@
                         </div>
                     </div>
                     <div class="w-100">
-                        <p class="display-2 fw-bold">{{ str_replace(array(" ", "　"), "", $posts->things) }}</p>
+                        <p class="display-2 fw-bold">{{ $posts->things }}</p>
                     </div>
                 </div>
             </div>
@@ -89,10 +87,12 @@
                     </div>
                 </div>
             </div>
+
             <!-- 概要・コメント遷移ボタン -->
             <div class="text-end h5">
                 <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#scrollspyHeading1">コメント</a>
             </div>
+
             <!-- タグ・概要 -->
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="1">
                 <div class="mb-5">

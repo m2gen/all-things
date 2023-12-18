@@ -24,9 +24,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        // １時間に投票できる回数
+        RateLimiter::for('vote', function (Request $request) {
+            return Limit::perHour(50)
+                ->by($request->ip())
+                ->response(function () {
+                    return response(view('limit')->render(), 429);
+                });
         });
+
 
         $this->routes(function () {
             Route::middleware('api')

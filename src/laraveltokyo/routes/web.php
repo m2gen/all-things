@@ -11,7 +11,7 @@ Auth::routes();
 // トップページ表示
 Route::get('/', [HelloController::class, 'index'])->name('top');
 // 投票加算
-Route::post('/vote/{id}', [HelloController::class, 'voteStore'])->name('vote.store');
+Route::post('/vote/{id}', [HelloController::class, 'voteStore'])->name('vote.store')->middleware('throttle:vote');
 // 万物詳細ページ表示
 Route::get('/details/{things}', [HelloController::class, 'show'])->name('details');
 Route::post('/details/{things}', [HelloController::class, 'commentStore'])->name('comment');
@@ -23,6 +23,7 @@ Route::get('/popTags', [HelloController::class, 'popTagShow'])->name('popTag.sho
 // 新規万物登録
 Route::get('/article', [HomeController::class, 'show'])->name('article.show');
 Route::post('/article', [HomeController::class, 'store'])->name('article.store');
+
 // 万物編集と更新
 Route::get('/edit/{things}', [HomeController::class, 'showForm'])->name('edit');
 Route::put('/update/{things}', [HomeController::class, 'update'])->name('update');
@@ -32,3 +33,5 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::post('/contact/confirm', [ContactController::class, 'confirm'])->name('confirm');
 //送信完了ページ
 Route::post('/contact/thanks', [ContactController::class, 'send'])->name('send');
+// ユーザーお気に入りページ
+Route::get('/favorite', [HomeController::class, 'favorite'])->name('favorite.show');

@@ -16,7 +16,7 @@ class HelloController extends Controller
     // トップページに並び替えて変数を
     public function index()
     {
-        $posts = Post::with('votes')->get()->take(500)->sortByDesc(function ($post) {
+        $posts = Post::with('votes')->take(500)->get()->sortByDesc(function ($post) {
             return $post->votes->sum('vote');
         });
 
@@ -33,13 +33,25 @@ class HelloController extends Controller
         return view('details', ['posts' => $posts, 'votes' => $votes, 'comes' => $comes]);
     }
 
-    //投票と更新
+    //投票とIPアドレス制限
     public function voteStore(Request $request, $id)
     {
         $post = Post::find($id);
-        $vote = $post->votes()->firstOrNew([]);
-        $vote->vote += $request->vote;
-        $vote->save();
+        $ipAddress = $request->ip();
+
+        // 同じIPアドレスからの既存の投票を検索
+        $votes = $post->votes()->where('ip_address', $ipAddress)->get();
+        $voteCount = $votes->count();
+        // 3回越えたら上限いったよ通知
+        if ($voteCount >= 3) {
+            return redirect()->back()->with('flashMessage', '1つの万物に付き投票回数は3回までです。しばらく時間を置いてから再度お試しください。');
+        } else {
+            $vote = new Vote;
+            $vote->vote = $request->vote;
+            $vote->ip_address = $ipAddress;
+            $vote->post_id = $id;
+            $vote->save();
+        }
 
         // 元のページ情報を取得
         $origin = $request->input('origin');
@@ -85,7 +97,7 @@ class HelloController extends Controller
     // 人気タグ
     public function popTagShow()
     {
-        $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->paginate(50);
+        $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->paginate(200);
 
         return view('popTag', ['tagCounts' => $tagCounts]);
     }

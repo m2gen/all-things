@@ -72,7 +72,7 @@
 <!-- モーダル -->
 @foreach($posts as $post)
 <!-- モーダルに一意のIDを割り当て -->
-<div class="modal fade" id="staticBackdrop-{{ $post->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-{{ $post->id }}" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop-{{ $post->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-{{ $post->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

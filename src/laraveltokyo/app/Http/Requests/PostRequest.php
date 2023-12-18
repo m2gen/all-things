@@ -20,8 +20,7 @@ class PostRequest extends FormRequest
             'things' => [
                 'required',
                 'max:20',
-                'unique:posts,things',
-                'regex:/^\S*$/'
+                'unique:posts,things'
             ]
         ];
 

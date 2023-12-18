@@ -9,33 +9,23 @@ use App\Models\Tag;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    // ログインしてるかどうか
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
+    // 万物新規登録
     public function show()
     {
         return view('article');
     }
-
+    // 新規万物を保存
     public function store(PostRequest $request)
     {
         $request->validate($request->rules());
 
         $post = new Post;
-        $post->things = str_replace(array(" ", "　"), "", $request->things);
+        $post->things = $request->things;
         $post->overview = $request->overview;
         $post->save();
 
@@ -48,14 +38,14 @@ class HomeController extends Controller
 
         return redirect()->route('details', ['things' => $post->things]);
     }
-
+    // 新規万物表示
     public function showForm($things)
     {
         $posts = Post::where('things', $things)->first();
 
         return view('edit', ['posts' => $posts]);
     }
-
+    // 万物更新
     public function update(UpdateRequest $request, $things)
     {
 
@@ -79,5 +69,10 @@ class HomeController extends Controller
         }
 
         return redirect()->route('details', ['things' => $newThings]);
+    }
+    // ユーザー万物お気に入り登録
+    public function favorite()
+    {
+        return view('favorite');
     }
 }

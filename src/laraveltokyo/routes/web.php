@@ -34,4 +34,6 @@ Route::post('/contact/confirm', [ContactController::class, 'confirm'])->name('co
 //送信完了ページ
 Route::post('/contact/thanks', [ContactController::class, 'send'])->name('send');
 // ユーザーお気に入りページ
-Route::get('/favorite', [HomeController::class, 'favorite'])->name('favorite.show');
+Route::get('/myPage', [HomeController::class, 'myPage'])->name('myPage');
+Route::post('/favorites/{id}', [HomeController::class, 'favorites_store'])->name('favorites.store');
+Route::delete('/favorites/{id}', [HomeController::class, 'favorites_delete'])->name('favorites.delete');

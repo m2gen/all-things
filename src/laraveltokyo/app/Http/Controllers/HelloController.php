@@ -8,6 +8,8 @@ use App\Models\Post;
 use App\Models\Vote;
 use App\Models\Tag;
 use App\Models\Come;
+use App\Models\Favorite;
+
 
 
 class HelloController extends Controller
@@ -29,8 +31,14 @@ class HelloController extends Controller
         $posts = Post::where('things', $things)->firstOrFail();
         $votes = Vote::where('post_id', $posts->id)->get();
         $comes = $posts->comes()->orderBy('created_at', 'desc')->take(500)->get();
+        $user = auth()->user();
+        $favorites = null;
 
-        return view('details', ['posts' => $posts, 'votes' => $votes, 'comes' => $comes]);
+        if ($user) {
+            $favorites = Favorite::where('post_id', $posts->id)->where('user_id', $user->id)->first();
+        }
+
+        return view('details', ['posts' => $posts, 'votes' => $votes, 'comes' => $comes, 'favorites' => $favorites]);
     }
 
     //投票とIPアドレス制限
@@ -40,7 +48,7 @@ class HelloController extends Controller
         $ipAddress = $request->ip();
 
         // 同じIPアドレスからの既存の投票を検索
-        $votes = $post->votes()->where('ip_address', $ipAddress)->get();
+        $votes = $post->votes()->where('ip_address', $ipAddress)->where('created_at', '>=', now()->subDay())->get();
         $voteCount = $votes->count();
         // 3回越えたら上限いったよ通知
         if ($voteCount >= 3) {

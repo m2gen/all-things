@@ -27,7 +27,7 @@ class PostRequest extends FormRequest
         $validate += [
             'tags' => [
                 'required',
-                'max:20',
+                'max:100',
                 'regex:/^\S*$/'
             ]
         ];
@@ -50,7 +50,7 @@ class PostRequest extends FormRequest
             'things.unique' => "既に登録済みの万物です",
             'tags.required' => "タグは必須項目です",
             'tags.regex' => "タグの空白を削除してください",
-            'tags.max' => "20文字以内でお願いします",
+            'tags.max' => "合計100文字以内でお願いします",
             'overview' => "3000字以内でお願いします",
         ];
     }

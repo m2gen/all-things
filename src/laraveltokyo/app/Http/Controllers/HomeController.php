@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Favorite;
 
 class HomeController extends Controller
 {
@@ -71,8 +73,29 @@ class HomeController extends Controller
         return redirect()->route('details', ['things' => $newThings]);
     }
     // ユーザー万物お気に入り登録
-    public function favorite()
+    public function myPage()
     {
-        return view('favorite');
+        $user = auth()->user();
+        $favorite_posts = $user->favorite_posts;
+
+        return view('myPage', compact('favorite_posts'));
+    }
+
+    public function favorites_store(Request $request)
+    {
+        $favorites = new Favorite;
+        $favorites->post_id = $request->post_id;
+        $favorites->user_id = auth()->user()->id;
+        $favorites->save();
+
+        return back();
+    }
+
+    public function favorites_delete($id)
+    {
+        $user = auth()->user();
+        Favorite::where('post_id', $id)->where('user_id', $user->id)->delete();
+
+        return back();
     }
 }

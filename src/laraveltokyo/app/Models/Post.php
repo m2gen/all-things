@@ -25,4 +25,9 @@ class Post extends Model
     {
         return $this->belongsToMany(Come::class, 'come_post', 'post_id', 'come_id');
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id')->withTimestamps();
+    }
 }

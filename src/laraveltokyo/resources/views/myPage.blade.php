@@ -8,12 +8,17 @@
         <div class="col-md-8 mx-auto">
             <div class="card shadow">
                 <div class="card-title mt-3 text-center">
-                    <span class="h4"> {{ Auth::user()->name }}</span>
+                    <span class="h5"> {{ Auth::user()->name }}</span>
                     <span class="fs-6">のお気に入り万物</span>
                 </div>
                 <div class="card-body">
-                    <p>万物</p>
-                    <p>削除ボタン</p>
+                    @foreach ($favorite_posts as $post)
+                    <ul>
+                        <li>
+                            <a class="h5 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/details/{{ $post->things }}">{{ $post->things }}</a>
+                        </li>
+                    </ul>
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -88,10 +88,30 @@
                 </div>
             </div>
 
-            <!-- 概要・コメント遷移ボタン -->
+            <!-- お気に入り登録・コメント遷移ボタン -->
             <div class="text-end h5">
                 <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#scrollspyHeading1">コメント</a>
             </div>
+
+            <!-- お気に入り機能 -->
+            @if ($favorites)
+            <form action="{{ route('favorites.delete', ['id' => $posts->id]) }}" method="POST" class="mb-4">
+                <input type="hidden" name="post_id" value="{{$posts->id}}">
+                @csrf
+                @method('DELETE')
+                <button type="submit">
+                    <i class="fa-solid fa-star fa-lg" style="color: #d6cf0a;"></i>
+                </button>
+            </form>
+            @else
+            <form action="{{ route('favorites.store', ['id' => $posts->id]) }}" method="POST" class="mb-4">
+                @csrf
+                <input type="hidden" name="post_id" value="{{$posts->id}}">
+                <button type="submit">
+                    <i class="fa-regular fa-star fa-lg"></i>
+                </button>
+            </form>
+            @endif
 
             <!-- タグ・概要 -->
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="1">

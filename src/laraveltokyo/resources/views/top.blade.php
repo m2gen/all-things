@@ -6,7 +6,6 @@
 <!-- 投票成功通知 -->
 @if(Session::has('flashMessage'))
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
     $(window).on('load', function() {
         $('#modal_box').modal('show');

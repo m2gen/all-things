@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateRequest;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Favorite;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -81,6 +83,18 @@ class HomeController extends Controller
         return view('myPage', compact('favorite_posts'));
     }
 
+    public function name_update(Request $request)
+    {
+        $user = auth()->user();
+        $inputs = $request->all();
+
+        User::where('id', $user->id)->update([
+            'name' => $inputs['name']
+        ]);
+
+        return back()->with('flashMessage', 'ユーザーネームを変更しました');
+    }
+
     public function favorites_store(Request $request)
     {
         $favorites = new Favorite;
@@ -88,7 +102,7 @@ class HomeController extends Controller
         $favorites->user_id = auth()->user()->id;
         $favorites->save();
 
-        return back();
+        return back()->with('flashMessage', 'お気に入り登録しました');
     }
 
     public function favorites_delete($id)
@@ -96,6 +110,6 @@ class HomeController extends Controller
         $user = auth()->user();
         Favorite::where('post_id', $id)->where('user_id', $user->id)->delete();
 
-        return back();
+        return back()->with('flashMessage', 'お気に入りを解除しました');
     }
 }

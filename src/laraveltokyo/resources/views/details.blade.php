@@ -5,7 +5,6 @@
 <!-- 投票成功通知 -->
 @if(Session::has('flashMessage'))
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
     $(window).on('load', function() {
         $('#modal_box').modal('show');
@@ -18,7 +17,7 @@
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="label1">通知</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body h6">
                 {{ session('flashMessage') }}
             </div>
             <div class="modal-footer">
@@ -100,7 +99,7 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit">
-                    <i class="fa-solid fa-star fa-lg" style="color: #d6cf0a;"></i>
+                    <i class="fa-solid fa-star" style="color: #d6cf0a;"></i>
                 </button>
             </form>
             @else
@@ -108,7 +107,7 @@
                 @csrf
                 <input type="hidden" name="post_id" value="{{$posts->id}}">
                 <button type="submit">
-                    <i class="fa-regular fa-star fa-lg"></i>
+                    <i class="fa-regular fa-star"></i>
                 </button>
             </form>
             @endif

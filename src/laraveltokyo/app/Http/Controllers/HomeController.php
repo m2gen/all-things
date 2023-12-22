@@ -9,7 +9,6 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Favorite;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -78,7 +77,7 @@ class HomeController extends Controller
     public function myPage()
     {
         $user = auth()->user();
-        $favorite_posts = $user->favorite_posts;
+        $favorite_posts = $user->favorite_posts->take(100);
 
         return view('myPage', compact('favorite_posts'));
     }
@@ -97,6 +96,13 @@ class HomeController extends Controller
 
     public function favorites_store(Request $request)
     {
+        $user = auth()->user();
+        $favoritesCount = $user->favorite_posts->count();
+
+        if ($favoritesCount >= 100) {
+            return back()->with('flashMessage', 'お気に入り登録は100個までです');
+        }
+
         $favorites = new Favorite;
         $favorites->post_id = $request->post_id;
         $favorites->user_id = auth()->user()->id;

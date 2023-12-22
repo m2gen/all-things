@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
         $validate += [
             'tags' => [
                 'required',
-                'max:20'
+                'max:100'
             ]
         ];
 
@@ -46,7 +46,7 @@ class UpdateRequest extends FormRequest
             'things.max' => "20文字以内でお願いします",
             'things.unique' => "既に登録済みの万物です",
             'tags.required' => "タグは必須項目です",
-            'tags.max' => "20文字以内でお願いします",
+            'tags.max' => "100文字以内でお願いします",
             'overview' => "3000字以内でお願いします",
         ];
     }

@@ -18,7 +18,7 @@
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="label1">通知</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body h6">
                 {{ session('flashMessage') }}
             </div>
             <div class="modal-footer">
@@ -105,7 +105,7 @@
 
     @media (max-width: 576px) {
         #table-fs {
-            font-size: 0.77rem !important;
+            font-size: 0.8rem !important;
         }
     }
 </style>

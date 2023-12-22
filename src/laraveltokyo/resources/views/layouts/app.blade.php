@@ -93,18 +93,18 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-4">
-                        <h6 class="mb-3">2023 万物ランキング</h6>
-                        <p>最新のランキング情報をチェックしましょう。</p>
+                        <h6 class="mb-3">フォローする</h6>
+                        <p>私たちの最新の更新を見逃さないでください。</p>
+                        <a href="#" class="btn btn-light w-25 my-3"><i class="fa-brands fa-x-twitter"></i></a>
                     </div>
                     <div class="col-md-4">
                         <h6 class="mb-3">リンク</h6>
                         <a href="{{ route('contact.index') }}" class="text-white">お問い合わせ</a><br>
-                        <!-- 他のリンクをここに追加 -->
+                        <a href="{{ route('show.terms') }}" class="text-white">利用規約</a><br>
                     </div>
                     <div class="col-md-4">
-                        <h6 class="mb-3">フォローする</h6>
-                        <p>私たちの最新の更新を見逃さないでください。</p>
-                        <!-- SNSリンクをここに追加 -->
+                        <h6 class="mb-3">2023 万物ランキング</h6>
+                        <p>最新のランキング情報をチェックしましょう。</p>
                     </div>
                 </div>
             </div>

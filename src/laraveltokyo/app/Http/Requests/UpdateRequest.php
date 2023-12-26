@@ -48,6 +48,8 @@ class UpdateRequest extends FormRequest
             'tags.required' => "タグは必須項目です",
             'tags.max' => "100文字以内でお願いします",
             'overview' => "3000字以内でお願いします",
+            'name.required' => "名前は必須項目です",
+            'name.max' => "20文字以内でお願いします"
         ];
     }
 }

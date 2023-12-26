@@ -23,7 +23,7 @@
 
 <body>
 
-    <header class="py-3">
+    <header class="py-3" id="main-back-color">
         <div class="container">
             <div class="text-start mb-3">
                 <a class="h1 text-decoration-none" href="{{ url('/') }}">万物ランキング</a>
@@ -45,32 +45,31 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="d-flex mb-3" action="/search" method="GET">
-                <input class="form-control me-2 border border-dark flex-grow-1" type="search" placeholder="検索" aria-label="Search" name="query" required>
-                <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
-            </form>
             <ul class="h5">
                 <li class="mb-2">
-                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ url('/') }}">トップ</a>
+                    <a id="menu-border" href="{{ url('/') }}">トップ</a>
                 </li>
                 <li class="mb-2">
-                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('article.show') }}">万物新規作成</a>
+                    <a id="menu-border" href="{{ route('show.usage') }}">このサイトについて</a>
                 </li>
                 <li class="mb-2">
-                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('popTag.show') }}">人気のタグ一覧</a>
+                    <a id="menu-border" href="{{ route('article.show') }}">万物新規作成</a>
+                </li>
+                <li class="mb-2">
+                    <a id="menu-border" href="{{ route('popTag.show') }}">人気のタグ一覧</a>
                 </li>
                 @guest
                 @if (Route::has('login'))
                 <li class="mb-2">
-                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('login') }}">{{ __('ログイン') }}</a>
+                    <a id="menu-border" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                 </li>
                 <li class="mb-2">
-                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('register') }}">{{ __('新規登録') }}</a>
+                    <a id="menu-border" href="{{ route('register') }}">{{ __('新規登録') }}</a>
                 </li>
                 @endif
                 @else
                 <li class="mb-2 nav-item dropdown">
-                    <a class="nav-link dropdown-toggle link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a class="nav-link dropdown-toggle id=" menu-border" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -84,27 +83,28 @@
         </div>
     </div>
 
-    <main class="min-vh-100 mt-5">
+    <main class="min-vh-100 my-5">
         @yield('content')
     </main>
 
-    <footer>
-        <div class="container-fluid bg-dark text-white py-4">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h6 class="mb-3">フォローする</h6>
-                        <p>私たちの最新の更新を見逃さないでください。</p>
+    <footer id="main-back-color">
+        <div class="container-fluid py-4">
+            <div class="container text-md-center">
+                <div class="row fw-bold">
+                    <div class="col-md-4 py-5">
+                        <h5 class="mb-2">SNS</h5>
+                        <p>公式X（Twitter）はこちらから</p>
                         <a href="#" class="btn btn-light w-25 my-3"><i class="fa-brands fa-x-twitter"></i></a>
                     </div>
-                    <div class="col-md-4">
-                        <h6 class="mb-3">リンク</h6>
-                        <a href="{{ route('contact.index') }}" class="text-white">お問い合わせ</a><br>
-                        <a href="{{ route('show.terms') }}" class="text-white">利用規約</a><br>
+                    <div class="col-md-4 py-5 order-md-2">
+                        <h5 class="mb-4">リンク</h5>
+                        <a href="{{ route('contact.index') }}" class="text-white">お問い合わせ</a><br />
+                        <a href="{{ route('show.terms') }}" class="text-white">利用規約</a><br />
+                        <a href="{{ route('show.policy') }}" class="text-white">プライバシーポリシー</a><br />
                     </div>
-                    <div class="col-md-4">
-                        <h6 class="mb-3">2023 万物ランキング</h6>
-                        <p>最新のランキング情報をチェックしましょう。</p>
+                    <div class="col-md-4 py-5 order-md-1">
+                        <h3 class="mb-5">万物ランキング</h3>
+                        <p>万物、全てのランキングを見られるのはこのサイトだけ。</p>
                     </div>
                 </div>
             </div>

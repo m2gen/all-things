@@ -33,10 +33,10 @@
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('contact.index') }}" class="btn btn-info">
+                            <a href="{{ route('contact.index') }}" class="btn btn-outline-dark">
                                 戻る
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn" id="main-button-color">
                                 送信
                             </button>
                         </div>

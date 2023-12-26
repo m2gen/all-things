@@ -3,10 +3,66 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
-  color: #000;
+  background-color: rgb(230, 180, 34, 0.02);
+  color: #000000;
+  font-family: system-ui,
+    -apple-system,
+    "Hiragino Sans",
+    "Yu Gothic UI",
+    "Segoe UI",
+    "Meiryo",
+    sans-serif;
 }
 
-header {
+#main-back-color {
+  background-color: #007C8A;
+  color: #e6b422;
+}
+
+#main-button-color {
+  background-color: #007C8A;
+  color: #fff;
+  font-weight: bold;
+}
+
+#gold-button-color {
   background-color: #e6b422;
+  color: #000;
+  font-weight: bold;
+}
+
+#main-gold-back {
+  background-color: #e6b422;
+}
+
+#main-blue-back {
+  background-color: #007C8A;
+}
+
+#main-gold-color {
+  color: #e6b422;
+}
+
+#main-blue-color {
+  color: #007C8A;
+}
+
+#light-gold-back {
+  background-color: rgb(230, 180, 34, 0.1);
+}
+
+#thin-blue-color {
+  background-color: rgb(0, 124, 138, 0.1);
+}
+
+#menu-border {
+  color: #000000;
+  border-bottom: 2px solid rgba(230, 180, 34, 0.6);
+  text-decoration: none;
+}
+
+#menu-border:hover {
+  color: #000000;
+  border-bottom: 3px solid rgb(230, 180, 34);
+  text-decoration: none;
 }

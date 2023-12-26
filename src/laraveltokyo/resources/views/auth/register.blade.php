@@ -61,14 +61,23 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
+                        <div class="row mb-5">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn" id="main-button-color">
                                     {{ __('新規登録') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-4">
+                            <a href="{{ route('login.google') }}" class="btn border border-dark p-2 text-decoration-none bg-warning fw-bold">
+                                <span>
+                                    <i class="fa-brands fa-google me-3"></i>Googleでログインする
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

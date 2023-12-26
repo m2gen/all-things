@@ -3,44 +3,20 @@
 
 @section('content')
 
-<!-- 投票成功通知 -->
-@if(Session::has('flashMessage'))
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script>
-    $(window).on('load', function() {
-        $('#modal_box').modal('show');
-    });
-</script>
-
-<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="label1">通知</h5>
-            </div>
-            <div class="modal-body h6">
-                {{ session('flashMessage') }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">閉じる</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
+@include('layouts.notification')
 
 <!-- テーブル -->
-<div class="container mb-5">
+<div class="container">
     <div class="row">
-        <div class="col-md-9 mx-auto">
-            <div class="table-responsive">
+        <div class="col-lg-9 mx-auto">
+            <div class="table-responsive shadow">
                 <table class="table table-sm table-bordered fs-6" id="table-fs">
-                    <thead class="table-info">
+                    <thead>
                         <tr class="text-center">
-                            <th>順位</th>
-                            <th>名前</th>
-                            <th>票数</th>
-                            <th>投票</th>
+                            <th id="main-gold-back">順位</th>
+                            <th id="main-gold-back">名前</th>
+                            <th id="main-gold-back">票数</th>
+                            <th id="main-gold-back">投票</th>
                         </tr>
                     </thead>
                     @foreach($posts as $post)
@@ -50,7 +26,7 @@
                             <td><a class="text-decoration-none fw-bold" href="/details/{{ $post->things }}">{{ $post->things }}</a></td>
                             <td>{{ number_format($post->votes->sum('vote')) }}票</td>
                             <td>
-                                <button type="button" id="vote_button" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $post->id }}">
+                                <button type="button" data-bs-toggle="modal" id="light-gold-back" data-bs-target="#staticBackdrop-{{ $post->id }}">
                                     投票
                                 </button>
                             </td>
@@ -76,16 +52,16 @@
             <form action="{{ route('vote.store', ['id' => $post->id]) }}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <p>現在{{ number_format($post->votes->sum('vote')) }}票</p>
-                    <label class="form-label" for="vote">1人最大10票まで!</label>
-                    <input type="range" name="vote" class="form-range" min="1" max="10" value="5" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
+                    <p class="h6">現在{{ number_format($post->votes->sum('vote')) }}票</p>
+                    <label class="form-label" for="vote">1回30票まで!</label>
+                    <input type="range" name="vote" class="form-range" min="1" max="30" value="15" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
                     <span id="rangeValue-{{ $post->id }}"></span>
 
                     <!-- originフィールドを追加 -->
                     <input type="hidden" name="origin" value="top">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary fw-bold">投票する</button>
+                    <button type="submit" class="btn" id="main-button-color">投票する</button>
                 </div>
             </form>
         </div>
@@ -98,9 +74,8 @@
 
 @push('style')
 <style>
-    #vote_button {
-        background-color: #f0f8ff;
-        cursor: pointer;
+    input[type="range"]::-webkit-slider-thumb {
+        background: #007C8A;
     }
 
     @media (max-width: 576px) {

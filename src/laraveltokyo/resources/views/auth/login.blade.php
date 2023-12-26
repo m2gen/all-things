@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-4">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -50,12 +50,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-0">
+                        <div class="row mb-5">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary me-2">
+                                <button type="submit" class="btn me-2" id="main-button-color">
                                     {{ __('ログイン') }}
                                 </button>
-                                <a class="btn btn-primary" href="{{ route('register') }}">
+                                <a class="btn" id="main-button-color" href="{{ route('register') }}">
                                     {{ __('新規登録') }}
                                 </a>
                                 @if (Route::has('password.request'))
@@ -66,6 +66,15 @@
                             </div>
                         </div>
                     </form>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-4">
+                            <a href="{{ route('login.google') }}" class="btn border border-dark p-2 text-decoration-none bg-warning fw-bold">
+                                <span>
+                                    <i class="fa-brands fa-google me-3"></i>Googleでログインする
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@
             @endif
         </div>
         <div class="d-grid gap-2 col-4 mx-auto">
-            <button type="submit" class="btn btn-outline-info fw-bold">保存する</button>
+            <button type="submit" class="btn" id="main-button-color">保存する</button>
         </div>
     </form>
 </div>

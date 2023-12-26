@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactFormRequest;
 use App\Mail\ContactSendmail;
+use Exception;
 
 class ContactController extends Controller
 {
@@ -20,9 +21,13 @@ class ContactController extends Controller
 
     public function send(ContactFormRequest $request)
     {
-        $contact = $request->all();
-        \Mail::to('ymslash78@gmail.com')->send(new ContactSendmail($contact));
-        $request->session()->regenerateToken();
-        return view('contact.thanks');
+        try {
+            $contact = $request->all();
+            \Mail::to('ymslash78@gmail.com')->send(new ContactSendmail($contact));
+            $request->session()->regenerateToken();
+            return view('contact.thanks');
+        } catch (Exception $e) {
+            echo "送信に失敗しました。", $e->getMessage();
+        }
     }
 }

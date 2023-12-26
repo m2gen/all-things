@@ -52,7 +52,7 @@
 
                         <div class="form-group row mb-0 mt-2">
                             <div class="col-md-9 offset-md-3">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn" id="main-button-color">
                                     内容の確認へ
                                 </button>
                             </div>

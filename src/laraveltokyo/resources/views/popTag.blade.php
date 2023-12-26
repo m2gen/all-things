@@ -18,7 +18,7 @@
 
 <div class="container mt-5">
     <div class="text-center">
-        {{ $tagCounts->links('vendor.pagination.bootstrap-4') }}
+        {{ $tagCounts->links('layouts.vendor.pagination.bootstrap-4') }}
     </div>
 </div>
 

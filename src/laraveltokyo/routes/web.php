@@ -4,6 +4,7 @@ use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\explainController;
+use App\Http\Controllers\GoogleLoginController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,6 +40,10 @@ Route::get('/myPage', [HomeController::class, 'myPage'])->name('myPage');
 Route::put('/myPage', [HomeController::class, 'name_update'])->name('name.update');
 Route::post('/favorites/{id}', [HomeController::class, 'favorites_store'])->name('favorites.store');
 Route::delete('/favorites/{id}', [HomeController::class, 'favorites_delete'])->name('favorites.delete');
-
 // 使い方や説明ファイルの表示
 Route::get('/termsOfService', [explainController::class, 'show_terms'])->name('show.terms');
+Route::get('/privacy-policy', [explainController::class, 'show_policy'])->name('show.policy');
+Route::get('/usage', [explainController::class, 'show_usage'])->name('show.usage');
+// Googleでログインする
+Route::get('/auth/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('login.google.callback');

@@ -3,31 +3,7 @@
 
 @section('content')
 
-<!-- 投票成功通知 -->
-@if(Session::has('flashMessage'))
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script>
-    $(window).on('load', function() {
-        $('#modal_box').modal('show');
-    });
-</script>
-
-<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="label1">通知</h5>
-            </div>
-            <div class="modal-body h6">
-                {{ session('flashMessage') }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">閉じる</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
+@include('layouts.notification')
 
 <div class="container">
     <div class="row justify-content-center">
@@ -44,7 +20,12 @@
                             <div class="col">
                                 <label for="user_name" class="form-label h6">ユーザーネーム</label>
                                 <p id="user_name_text" class="form-control-static">{{ Auth::user()->name }}</p>
-                                <input type="text" class="form-control d-none" id="user_name" name="name" value="{{ Auth::user()->name }}">
+                                <input type="text" class="form-control d-none  {{ $errors->has('name') ? 'is-invalid' : '' }}" id="user_name" name="name" value="{{ Auth::user()->name }}">
+                                @if($errors->has('name'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="text-end mt-1 mb-0 col">
                                 <button type="button" class="btn btn-sm btn-dark" id="edit-button">名前編集</button>
@@ -70,7 +51,7 @@
                     @foreach ($favorite_posts as $post)
                     <ul>
                         <li class="lh-sm">
-                            <a class="h6 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/details/{{ $post->things }}">{{ $post->things }}</a>
+                            <a class="h6" id="menu-border" href="/details/{{ $post->things }}">{{ $post->things }}</a>
                         </li>
                     </ul>
                     @endforeach

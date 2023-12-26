@@ -2,38 +2,13 @@
 @section('title', '万物ランキング')
 @section('content')
 
-<!-- 投票成功通知 -->
-@if(Session::has('flashMessage'))
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script>
-    $(window).on('load', function() {
-        $('#modal_box').modal('show');
-    });
-</script>
-
-<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="label1">通知</h5>
-            </div>
-            <div class="modal-body h6">
-                {{ session('flashMessage') }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">閉じる</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-
+@include('layouts.notification')
 
 <div class="container mb-5">
     <!-- 万物見出しなど -->
     <div class="row">
         <div class="col-lg-9 mx-auto">
-            <div class="bg-light mb-3">
+            <div class="mb-3">
                 <div class="align-items-center">
                     <div class="row mb-4">
                         <div class="col text-start">
@@ -41,9 +16,9 @@
                         </div>
                         <div class="col text-end">
                             <a class="text-decoration-none" href="/edit/{{ $posts->things }}">
-                                <button class="btn btn-outline-info fw-bold">編集</button>
+                                <button class="btn" id="btn-edit">編集</button>
                             </a>
-                            <button class="btn btn-outline-dark fw-bold" id="vote_button" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $posts->id }}">
+                            <button class="btn btn-outline-dark fw-bold" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $posts->id }}">
                                 投票
                             </button>
                         </div>
@@ -72,15 +47,15 @@
                         <form action="{{ route('vote.store', ['id' => $posts->id]) }}" method="post">
                             @csrf
                             <div class="modal-body">
-                                <p>現在{{ $posts->votes->sum('vote') }}票</p>
-                                <label class="form-label" for="vote">1人10票まで!</label>
-                                <input type="range" name="vote" class="form-range" min="1" max="10" value="5" id="voteRange-{{ $posts->id }}" oninput="updateValue(this.value, '{{ $posts->id }}')">
+                                <p class="h6">現在{{ $posts->votes->sum('vote') }}票</p>
+                                <label class="form-label" for="vote">1回30票まで!</label>
+                                <input type="range" name="vote" class="form-range" min="1" max="30" value="15" id="voteRange-{{ $posts->id }}" oninput="updateValue(this.value, '{{ $posts->id }}')">
                                 <span id="rangeValue-{{ $posts->id }}"></span>
                                 <input type="hidden" name="origin" value="details">
                                 <input type="hidden" name="post_things" value="{{ $posts->things }}">
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">投票する</button>
+                                <button type="submit" class="btn" id="gold-button-color">投票する</button>
                             </div>
                         </form>
                     </div>
@@ -113,7 +88,7 @@
             @endif
 
             <!-- タグ・概要 -->
-            <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="1">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="1">
                 <div class="mb-5">
                     <div class="mb-3">
                         <h4>タグ</h4>
@@ -149,7 +124,7 @@
                                 @endif
                             </div>
                             <div class="mt-3 text-center">
-                                <button type="submit" class="btn btn-dark fw-bold">書き込む</button>
+                                <button type="submit" class="btn" id="main-button-color">書き込む</button>
                             </div>
                         </form>
                         @foreach($comes as $come)
@@ -171,3 +146,24 @@
     </div>
 </div>
 @endsection
+
+@push('style')
+<style>
+    input[type="range"]::-webkit-slider-thumb {
+        background: #e6b422;
+    }
+
+    #btn-edit {
+        color: #e6b422;
+        font-weight: bold;
+        border-color: #e6b422;
+    }
+
+    #btn-edit:hover {
+        color: #000000;
+        background-color: #e6b422;
+        border-color: #e6b422;
+        font-weight: bold;
+    }
+</style>
+@endpush

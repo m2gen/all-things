@@ -8,6 +8,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 mb-3">
+            <h2 class="mb-4" style="border-bottom: 2px solid #007C8A;">マイページ</h2>
             <div class="card shadow">
                 <div class="card-title mt-3 text-center">
                     <h5>アカウント設定</h5>
@@ -45,7 +46,7 @@
         <div class="col-md-4 mb-5">
             <div class="card shadow">
                 <div class="card-title mt-3 text-center">
-                    <span class="fs-6">お気に入り登録した万物</span>
+                    <span class="h6">お気に入り登録した万物({{ $favorite_posts->total() }})</span>
                 </div>
                 <div class="card-body">
                     @foreach ($favorite_posts as $post)
@@ -55,6 +56,9 @@
                         </li>
                     </ul>
                     @endforeach
+                </div>
+                <div class="mt-5">
+                    {{ $favorite_posts->links('layouts.vendor.pagination.bootstrap-4') }}
                 </div>
             </div>
         </div>

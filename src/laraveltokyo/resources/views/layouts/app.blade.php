@@ -25,12 +25,12 @@
 
     <header class="py-3" id="main-back-color">
         <div class="container">
-            <div class="text-start mb-3">
-                <a class="h1 text-decoration-none" href="{{ url('/') }}">万物ランキング</a>
+            <div class="text-md-start text-center mb-3">
+                <a href="{{ url('/') }}"><img src="{{ asset('images/header3.png') }}" alt="ヘッダー" height="70" width="315"></a>
             </div>
             <div class="text-end">
-                <form class="d-flex mb-3 w-100" action="/search" method="GET">
-                    <input class="form-control me-2 border border-dark flex-grow-1" type="search" placeholder="検索" aria-label="Search" name="query" required>
+                <form class="d-flex mb-3 w-100" action="/things/search" method="GET">
+                    <input class="form-control me-2 border border-dark flex-grow-1" type="search" placeholder="万物検索" aria-label="Search" name="query" required>
                     <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <button class="btn btn-dark text-nowrap w-25" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">メニュー</button>
@@ -45,6 +45,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+            <form class="d-flex mb-3 w-100" action="/tags/search" method="GET">
+                <input class="form-control me-2 border border-dark flex-grow-1" type="search" placeholder="タグ検索" aria-label="Search" name="query" required>
+                <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+            </form>
             <ul class="h5">
                 <li class="mb-2">
                     <a id="menu-border" href="{{ url('/') }}">トップ</a>
@@ -56,7 +60,7 @@
                     <a id="menu-border" href="{{ route('article.show') }}">万物新規作成</a>
                 </li>
                 <li class="mb-2">
-                    <a id="menu-border" href="{{ route('popTag.show') }}">人気のタグ一覧</a>
+                    <a id="menu-border" href="{{ route('popTag.show') }}">タグ一覧</a>
                 </li>
                 @guest
                 @if (Route::has('login'))
@@ -102,9 +106,8 @@
                         <a href="{{ route('show.terms') }}" class="text-white">利用規約</a><br />
                         <a href="{{ route('show.policy') }}" class="text-white">プライバシーポリシー</a><br />
                     </div>
-                    <div class="col-md-4 py-5 order-md-1">
-                        <h3 class="mb-5">万物ランキング</h3>
-                        <p>万物、全てのランキングを見られるのはこのサイトだけ。</p>
+                    <div class="col-md-4 py-5 order-md-1 text-center">
+                        <a href="{{ url('/') }}"><img src="{{ asset('images/header3.png') }}" alt="ヘッダー" height="60" width="270"></a>
                     </div>
                 </div>
             </div>

@@ -18,8 +18,8 @@
         </div>
         <div class="mb-4">
             <label for="tags" class="mb-0 h4">タグ</label>
-            <p class="mb-2" id="topic">万物の特徴をカンマ区切りで端的に表してください（例：アーティスト,歌手）。タグページでは同じタグだけが集められたランキングが作成されます。</p>
-            <input type="text" name="tags" placeholder="タグを入力（カンマ区切り）" class="w-100 form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}" value="{{ old('tags', trim($posts->tags->pluck('name')->join(', '))) }}">
+            <p class="mb-2" id="topic">万物の特徴をカンマ区切りで端的に表してください（例：アーティスト,歌手,バンド）。タグページでは同じタグだけが集められたランキングが作成されます。</p>
+            <input type="text" name="tags" placeholder="タグを入力（カンマ区切り）" maxlength="200" class="w-100 form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}" value="{{ old('tags', trim($posts->tags->pluck('name')->join(', '))) }}">
             @if($errors->has('tags'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('tags') }}</strong>
@@ -28,7 +28,7 @@
         </div>
         <div class="mb-4">
             <label for="overview" class="h4">概要</label>
-            <textarea class="form-control {{ $errors->has('overview') ? 'is-invalid' : '' }}" type="text" name="overview" style="height: 240px;">{{ old('overview', $posts->overview) }}</textarea>
+            <textarea class="form-control {{ $errors->has('overview') ? 'is-invalid' : '' }}" maxlength="4000" type="text" name="overview" style="height: 240px;">{{ old('overview', $posts->overview) }}</textarea>
             @if($errors->has('overview'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('overview') }}</strong>

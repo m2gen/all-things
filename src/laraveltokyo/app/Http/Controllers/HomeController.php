@@ -91,7 +91,7 @@ class HomeController extends Controller
     public function myPage()
     {
         $user = auth()->user();
-        $favorite_posts = $user->favorite_posts->take(100);
+        $favorite_posts = $user->favorite_posts->take(200)->paginate(50);
 
         return view('myPage', compact('favorite_posts'));
     }

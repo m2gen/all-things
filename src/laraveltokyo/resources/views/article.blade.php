@@ -4,6 +4,7 @@
 
 
 <div class="container mt-4">
+    <h2 class="mb-4 text-center">万物新規作成</h2>
     <form action="{{ route('article.store') }}" method="POST">
         @csrf
         <div class="mb-4">
@@ -17,8 +18,8 @@
         </div>
         <div class="mb-4">
             <label for="tags" class="mb-0 h4">タグ</label>
-            <p class="mb-2" id="topic">万物の特徴をカンマ区切りで端的に表してください（例：アーティスト,歌手）。タグページでは同じタグだけが集められたランキングが作成されます。</p>
-            <input type="text" name="tags" placeholder="タグを入力（カンマ区切り）" value="{{ old('tags') }}" class="w-100 form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}">
+            <p class="mb-2" id="topic">万物の特徴をカンマ区切りで端的に表してください（例：アーティスト,歌手,バンド）。タグページでは同じタグだけが集められたランキングが作成されます。</p>
+            <input type="text" name="tags" placeholder="タグを入力（カンマ区切り）" value="{{ old('tags') }}" maxlength="200" class="w-100 form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}">
             @if($errors->has('tags'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('tags') }}</strong>
@@ -27,7 +28,7 @@
         </div>
         <div class="mb-4">
             <label for="overview" class="h4">概要</label>
-            <textarea class="form-control {{ $errors->has('overview') ? 'is-invalid' : '' }}" type="text" name="overview" style="height: 240px;">{{ old('overview') }}</textarea>
+            <textarea class="form-control {{ $errors->has('overview') ? 'is-invalid' : '' }}" maxlength="4000" type="text" name="overview" style="height: 240px;">{{ old('overview') }}</textarea>
             @if($errors->has('overview'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('overview') }}</strong>

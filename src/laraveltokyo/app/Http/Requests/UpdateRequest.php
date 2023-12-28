@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -18,21 +19,22 @@ class UpdateRequest extends FormRequest
         $validate += [
             'things' => [
                 'required',
-                'max:20'
+                'max:20',
+                Rule::unique('posts', 'things')->ignore($this->route('things'), 'things')
             ]
         ];
 
         $validate += [
             'tags' => [
                 'required',
-                'max:100'
+                'max:200'
             ]
         ];
 
         $validate += [
             'overview' => [
                 'nullable',
-                'max:3000'
+                'max:4000'
             ]
         ];
 
@@ -46,10 +48,8 @@ class UpdateRequest extends FormRequest
             'things.max' => "20文字以内でお願いします",
             'things.unique' => "既に登録済みの万物です",
             'tags.required' => "タグは必須項目です",
-            'tags.max' => "100文字以内でお願いします",
-            'overview' => "3000字以内でお願いします",
-            'name.required' => "名前は必須項目です",
-            'name.max' => "20文字以内でお願いします"
+            'tags.max' => "200文字以内でお願いします",
+            'overview.max' => "4000字以内でお願いします"
         ];
     }
 }

@@ -17,9 +17,15 @@ class HelloController extends Controller
     // トップページに並び替えて変数を
     public function index()
     {
-        $posts = Post::with('votes')->take(500)->get()->sortByDesc(function ($post) {
-            return $post->votes->sum('vote');
-        });
+        session(['currentPage' => request('page')]);
+
+        $posts = Post::with('votes')
+            ->select('posts.*')
+            ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+            ->groupBy('posts.id')
+            ->orderByRaw('SUM(votes.vote) DESC')
+            ->orderBy('created_at', 'asc')
+            ->paginate(100);
 
         return view('top', ['posts' => $posts]);
     }
@@ -37,7 +43,20 @@ class HelloController extends Controller
             $favorites = Favorite::where('post_id', $posts->id)->where('user_id', $user->id)->first();
         }
 
-        return view('details', ['posts' => $posts, 'votes' => $votes, 'comes' => $comes, 'favorites' => $favorites]);
+        // 全体の順位情報を取得
+        $rankedPosts = Post::with('votes')
+            ->select('posts.*')
+            ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+            ->groupBy('posts.id')
+            ->orderByRaw('SUM(votes.vote) DESC')
+            ->get();
+
+        // 特定の投稿の順位を計算
+        $rank = $rankedPosts->search(function ($item) use ($posts) {
+            return $item->id == $posts->id;
+        }) + 1;
+
+        return view('details', ['posts' => $posts, 'votes' => $votes, 'comes' => $comes, 'favorites' => $favorites, 'rank' => $rank]);
     }
 
     //投票とIPアドレス制限
@@ -46,6 +65,7 @@ class HelloController extends Controller
 
         try {
 
+            $currentPage = session('currentPage') ?? 1;
             $post = Post::find($id);
             $ipAddress = $request->ip();
 
@@ -68,7 +88,7 @@ class HelloController extends Controller
 
             // リダイレクト先を決定
             if ($origin == 'top') {
-                return redirect()->route('top')->with('flashMessage', '投票できました！');
+                return redirect()->route('top', ['page' => $currentPage])->with('flashMessage', '投票できました！');
             } elseif ($origin == 'tag') {
                 $tagName = $request->input('tag_name');
                 return redirect()->route('tags.show', ['name' => $tagName])->with('flashMessage', '投票できました！');
@@ -81,8 +101,8 @@ class HelloController extends Controller
         }
     }
 
-    // 検索
-    public function search(Request $request)
+    // 万物検索
+    public function things_search(Request $request)
     {
         try {
             $query = $request->input('query');
@@ -97,6 +117,23 @@ class HelloController extends Controller
             echo "検索に失敗しました。", $e->getMessage();
         }
     }
+    // タグ検索
+    public function tags_search(Request $request)
+    {
+        try {
+            $query = $request->input('query');
+            $tags = Tag::where('name', 'LIKE', "%{$query}%")->orderBy('updated_at', 'desc')->take(100)->get();
+            $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->take(200)->get();
+
+
+            if (!empty($tags)) {
+                return view('search_tags_results', ['tags' => $tags, 'tagCounts' => $tagCounts]);
+            }
+        } catch (Exception $e) {
+            echo "検索に失敗しました。", $e->getMessage();
+        }
+    }
+
 
     // タグランキングページの表示
     public function showTag($name)
@@ -108,15 +145,9 @@ class HelloController extends Controller
             return $post->votes->sum('vote');
         })->take(500);
 
+        $posts = $posts->paginate(100);
+
         return view('tag', ['posts' => $posts, 'tag' => $tag]);
-    }
-
-    // 人気タグ
-    public function popTagShow()
-    {
-        $tagCounts = Tag::withCount('posts')->orderBy('posts_count', 'desc')->paginate(200);
-
-        return view('popTag', ['tagCounts' => $tagCounts]);
     }
 
     // コメント

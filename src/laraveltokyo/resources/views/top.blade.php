@@ -9,7 +9,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9 mx-auto">
-            <div class="table-responsive shadow">
+            <h4 class="mb-2">登録万物数：{{ number_format($posts->total()) }}</h4>
+            <div class="table-responsive">
                 <table class="table table-sm table-bordered fs-6" id="table-fs">
                     <thead>
                         <tr class="text-center">
@@ -22,7 +23,7 @@
                     @foreach($posts as $post)
                     <tbody>
                         <tr class="text-center text-nowrap">
-                            <th scope="row">{{ $loop->iteration }}位</th>
+                            <th scope="row">{{ ($posts->currentPage()-1)*$posts->perPage()+$loop->iteration }}位</th>
                             <td><a class="text-decoration-none fw-bold" href="/details/{{ $post->things }}">{{ $post->things }}</a></td>
                             <td>{{ number_format($post->votes->sum('vote')) }}票</td>
                             <td>
@@ -35,9 +36,15 @@
                     @endforeach
                 </table>
             </div>
+            <div class="mt-5">
+                {{ $posts->links('layouts.vendor.pagination.bootstrap-4') }}
+            </div>
+            <p>{{ $posts->count() }}/{{ number_format($posts->total()) }}</p>
         </div>
     </div>
 </div>
+
+
 
 <!-- モーダル -->
 @foreach($posts as $post)

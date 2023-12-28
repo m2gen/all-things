@@ -12,7 +12,8 @@
                 <div class="align-items-center">
                     <div class="row mb-4">
                         <div class="col text-start">
-                            <p class="h4">{{ number_format($votes->sum('vote')) }}票</p>
+                            <p class="h5">全体：{{ number_format($rank) }}位</p>
+                            <p class="h5">合計：{{ number_format($votes->sum('vote')) }}票</p>
                         </div>
                         <div class="col text-end">
                             <a class="text-decoration-none" href="/edit/{{ $posts->things }}">
@@ -104,7 +105,7 @@
                 <!-- コメント -->
                 <div class="row mb-3">
                     <div class="col-lg-9 mx-auto">
-                        <p class="h4" id="scrollspyHeading1">コメント</p>
+                        <p class="h5" id="scrollspyHeading1">コメント（{{ number_format($comes->count()) }}件）</p>
                         <form action="{{ route('comment', ['things' => $posts->things]) }}" method="post" class="mb-5">
                             @csrf
                             <div class="mt-1">

@@ -38,9 +38,14 @@ class HomeController extends Controller
             $post->save();
 
             $tagNames = explode(',', $request->tags);
+            $tagNames = array_map('trim', $tagNames);
+            $tagNames = array_filter($tagNames);
+            $tagNames = array_unique($tagNames);
             foreach ($tagNames as $tagName) {
-                $tagName = str_replace(array(" ", "　"), "", $tagName);
-                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $tag = Tag::where('name', $tagName)->first();
+                if (!$tag) {
+                    $tag = Tag::create(['name' => $tagName]);
+                }
                 $post->tags()->attach($tag->id);
             }
 
@@ -75,9 +80,14 @@ class HomeController extends Controller
             $post->tags()->detach();
 
             $tagNames = explode(',', $request->tags);
+            $tagNames = array_map('trim', $tagNames);
+            $tagNames = array_filter($tagNames);
+            $tagNames = array_unique($tagNames);
             foreach ($tagNames as $tagName) {
-                $tagName = str_replace(array(" ", "　"), "", $tagName);
-                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $tag = Tag::where('name', $tagName)->first();
+                if (!$tag) {
+                    $tag = Tag::create(['name' => $tagName]);
+                }
                 $post->tags()->attach($tag->id);
             }
 

@@ -141,6 +141,8 @@ class HelloController extends Controller
         $tag = Tag::where('name', $name)->first();
         $posts = $tag->posts;
 
+        $posts = $posts->unique('things');
+
         $posts = $posts->sortByDesc(function ($post) {
             return $post->votes->sum('vote');
         })->take(500);

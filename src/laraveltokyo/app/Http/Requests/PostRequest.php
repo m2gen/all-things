@@ -49,6 +49,7 @@ class PostRequest extends FormRequest
             'things.unique' => "既に登録済みの万物です",
             'tags.required' => "タグは必須項目です",
             'tags.max' => "合計200文字以内でお願いします",
+            'tags.unique' => "タグが重複しています",
             'overview.max' => "4000字以内でお願いします",
         ];
     }

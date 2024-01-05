@@ -23,7 +23,7 @@ class ContactController extends Controller
     {
         try {
             $contact = $request->all();
-            \Mail::to('ymslash78@gmail.com')->send(new ContactSendmail($contact));
+            \Mail::to('banbutsuRanking@gmail.com')->send(new ContactSendmail($contact));
             $request->session()->regenerateToken();
             return view('contact.thanks');
         } catch (Exception $e) {

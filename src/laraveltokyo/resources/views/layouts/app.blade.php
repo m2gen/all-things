@@ -8,6 +8,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src="{{ asset('/js/top.js') }}"></script>
+    <link rel="shortcut icon" href="{{ asset('images/アイコン.png') }}" type="image/x-icon">
 
     @hasSection('title')
     <title>@yield('title')</title>
@@ -98,7 +99,7 @@
                     <div class="col-md-4 py-5">
                         <h5 class="mb-2">SNS</h5>
                         <p>公式X（Twitter）はこちらから</p>
-                        <a href="#" class="btn btn-light w-25 my-3"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://twitter.com/banbutsuRanking" class="btn btn-light w-25 my-3" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
                     </div>
                     <div class="col-md-4 py-5 order-md-2">
                         <h5 class="mb-4">リンク</h5>

@@ -9,7 +9,10 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9 mx-auto">
-            <h4 class="mb-2">登録万物数：{{ number_format($posts->total()) }}</h4>
+            <div class="d-flex align-items-center">
+                <img src="{{ asset('images/アイコン.png') }}" class="me-2 mb-2" style="height: 19px; width: 19px;">
+                <h4>登録万物数：{{ number_format($posts->total()) }}</h4>
+            </div>
             <div class="table-responsive">
                 <table class="table table-sm table-bordered fs-6" id="table-fs">
                     <thead>
@@ -23,10 +26,10 @@
                     @foreach($posts as $post)
                     <tbody>
                         <tr class="text-center text-nowrap">
-                            <th scope="row">{{ ($posts->currentPage()-1)*$posts->perPage()+$loop->iteration }}位</th>
-                            <td><a class="text-decoration-none fw-bold" href="/details/{{ $post->things }}">{{ $post->things }}</a></td>
-                            <td>{{ number_format($post->votes->sum('vote')) }}票</td>
-                            <td>
+                            <th scope="row" id="table-color">{{ ($posts->currentPage()-1)*$posts->perPage()+$loop->iteration }}位</th>
+                            <td id="table-color"><a class="text-decoration-none fw-bold" href="/details/{{ $post->things }}">{{ $post->things }}</a></td>
+                            <td id="table-color">{{ number_format($post->votes->sum('vote')) }}票</td>
+                            <td id="table-color">
                                 <button type="button" data-bs-toggle="modal" id="light-gold-back" data-bs-target="#staticBackdrop-{{ $post->id }}">
                                     投票
                                 </button>
@@ -82,6 +85,9 @@
 @push('style')
 <style>
     input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 25px;
+        width: 25px;
         background: #007C8A;
     }
 

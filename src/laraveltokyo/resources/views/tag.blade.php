@@ -26,10 +26,10 @@
                     @foreach($posts as $post)
                     <tbody>
                         <tr class="text-center text-nowrap">
-                            <th scope="row">{{ ($posts->currentPage()-1)*$posts->perPage()+$loop->iteration }}位</th>
-                            <td><a class="text-decoration-none fw-bold" href="/details/{{ $post->things }}">{{ $post->things }}</a></td>
-                            <td>{{ number_format($post->votes->sum('vote')) }}票</td>
-                            <td>
+                            <th scope="row" id="table-color">{{ ($posts->currentPage()-1)*$posts->perPage()+$loop->iteration }}位</th>
+                            <td id="table-color"><a class="text-decoration-none fw-bold" href="/details/{{ $post->things }}">{{ $post->things }}</a></td>
+                            <td id="table-color">{{ number_format($post->votes->sum('vote')) }}票</td>
+                            <td id="table-color">
                                 <button type="button" id="thin-blue-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ $post->id }}">
                                     投票
                                 </button>
@@ -83,6 +83,9 @@
 @push('style')
 <style>
     input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 25px;
+        width: 25px;
         background: #007C8A;
     }
 

@@ -14,6 +14,10 @@ body {
     sans-serif;
 }
 
+#table-color {
+  background-color: rgb(230, 180, 34, 0.01);
+}
+
 #main-back-color {
   background-color: #007C8A;
   color: #e6b422;
@@ -65,4 +69,10 @@ body {
   color: #000000;
   border-bottom: 3px solid rgb(230, 180, 34);
   text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  #offcanvasWithBothOptions {
+    width: 75%;
+  }
 }

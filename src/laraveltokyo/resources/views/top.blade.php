@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-9 mx-auto">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('images/アイコン.png') }}" class="me-2 mb-2" style="height: 19px; width: 19px;">
+                <img src="{{ asset('images/アイコン.png') }}" class="me-2 mb-2" alt="アイコン" style="height: 19px; width: 19px;">
                 <h4>登録万物数：{{ number_format($posts->total()) }}</h4>
             </div>
             <div class="table-responsive">

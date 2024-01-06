@@ -6,6 +6,8 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\Log;
+
 
 class GoogleLoginController extends Controller
 {
@@ -28,7 +30,8 @@ class GoogleLoginController extends Controller
 
             return redirect()->route('top');
         } catch (Exception $e) {
-            echo "ログインに失敗しました。", $e->getMessage();
+            Log::error("ログインに失敗しました。", ['exception' => $e]);
+            echo "ログインに失敗しました。";
         }
     }
 }

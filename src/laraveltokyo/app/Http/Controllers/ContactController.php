@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactFormRequest;
 use App\Mail\ContactSendmail;
 use Exception;
+use Illuminate\Support\Facades\Log;
+
 
 class ContactController extends Controller
 {
@@ -27,7 +29,8 @@ class ContactController extends Controller
             $request->session()->regenerateToken();
             return view('contact.thanks');
         } catch (Exception $e) {
-            echo "送信に失敗しました。", $e->getMessage();
+            Log::error("送信失敗しました。", ['exception' => $e]);
+            echo "送信失敗しました。";
         }
     }
 }

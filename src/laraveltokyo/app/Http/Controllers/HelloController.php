@@ -10,6 +10,7 @@ use App\Models\Tag;
 use App\Models\Come;
 use App\Models\Favorite;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class HelloController extends Controller
 {
@@ -97,7 +98,8 @@ class HelloController extends Controller
                 return redirect()->route('details', ['things' => $postThings])->with('flashMessage', '投票できました！');
             }
         } catch (Exception $e) {
-            echo "投票に失敗しました。", $e->getMessage();
+            Log::error("投票に失敗しました。", ['exception' => $e]);
+            echo "投票に失敗しました。";
         }
     }
 
@@ -114,7 +116,8 @@ class HelloController extends Controller
                 return view('search_results', ['posts' => $posts, 'tagCounts' => $tagCounts]);
             }
         } catch (Exception $e) {
-            echo "検索に失敗しました。", $e->getMessage();
+            Log::error("検索に失敗しました。", ['exception' => $e]);
+            echo "検索に失敗しました。";
         }
     }
     // タグ検索
@@ -130,7 +133,8 @@ class HelloController extends Controller
                 return view('search_tags_results', ['tags' => $tags, 'tagCounts' => $tagCounts]);
             }
         } catch (Exception $e) {
-            echo "検索に失敗しました。", $e->getMessage();
+            Log::error("検索に失敗しました。", ['exception' => $e]);
+            echo "検索に失敗しました。";
         }
     }
 
@@ -178,7 +182,8 @@ class HelloController extends Controller
                 return redirect()->route('details', ['things' => $post->things])->with('flashMessage', 'コメント完了！');
             }
         } catch (Exception $e) {
-            echo "コメントに失敗しました。", $e->getMessage();
+            Log::error("コメントに失敗しました。", ['exception' => $e]);
+            echo "コメントに失敗しました。";
         }
     }
 }

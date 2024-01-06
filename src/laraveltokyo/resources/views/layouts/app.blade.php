@@ -9,6 +9,14 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src="{{ asset('/js/top.js') }}"></script>
     <link rel="shortcut icon" href="{{ asset('images/アイコン.png') }}" type="image/x-icon">
+    <meta name="description" content="万物すべてを登録できる投票型ランキングサイト">
+
+    <meta property="og:url" content="https://banbutsu.xyz/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="万物ランキング" />
+    <meta property="og:description" content="万物すべてを登録できる投票型ランキングサイト" />
+    <meta property="og:site_name" content="万物ランキング" />
+    <meta property="og:image" content="{{ asset('images/OGPImage.png') }}" />
 
     @hasSection('title')
     <title>@yield('title')</title>

@@ -11,6 +11,7 @@ use App\Models\Tag;
 use App\Models\Favorite;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -51,7 +52,8 @@ class HomeController extends Controller
 
             return redirect()->route('details', ['things' => $post->things]);
         } catch (Exception $e) {
-            echo "保存に失敗しました。", $e->getMessage();
+            Log::error("保存に失敗しました。", ['exception' => $e]);
+            echo "保存に失敗しました。";
         }
     }
 
@@ -93,7 +95,8 @@ class HomeController extends Controller
 
             return redirect()->route('details', ['things' => $newThings]);
         } catch (Exception $e) {
-            echo "更新に失敗しました。", $e->getMessage();
+            Log::error("更新に失敗しました。", ['exception' => $e]);
+            echo "更新に失敗しました。";
         }
     }
 
@@ -120,7 +123,8 @@ class HomeController extends Controller
 
             return back()->with('flashMessage', 'ユーザーネームを変更しました');
         } catch (Exception $e) {
-            echo "名前変更に失敗しました。", $e->getMessage();
+            Log::error("名前変更に失敗しました。", ['exception' => $e]);
+            echo "名前変更に失敗しました。";
         }
     }
 
@@ -141,7 +145,8 @@ class HomeController extends Controller
 
             return back()->with('flashMessage', 'お気に入り登録しました。マイページより確認可能です。');
         } catch (Exception $e) {
-            echo "お気に入り登録に失敗しました。", $e->getMessage();
+            Log::error("お気に入り登録に失敗しました。", ['exception' => $e]);
+            echo "お気に入り登録に失敗しました。";
         }
     }
 
@@ -153,7 +158,8 @@ class HomeController extends Controller
 
             return back()->with('flashMessage', 'お気に入りを解除しました');
         } catch (Exception $e) {
-            echo "お気に入り登録解除に失敗しました。", $e->getMessage();
+            Log::error("お気に入り登録解除に失敗しました。", ['exception' => $e]);
+            echo "お気に入り登録解除に失敗しました。";
         }
     }
 }

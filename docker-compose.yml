@@ -34,11 +34,11 @@ services:
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
 
     volumes:
-      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/prod_data:/var/lib/mysql
       - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
 
     ports:
-      - 3306:3306
+      - 3300:3306
   # ----------------------------------
   # phpMyAdminを動かすコンテナ
   # ----------------------------------
@@ -56,15 +56,3 @@ services:
 
     volumes:
       - ./docker/phpmyadmin/sessions:/sessions
-
-  # ----------------------------------
-  # MailCatcherを動かすコンテナ
-  # ----------------------------------
-  mailcatcher:
-
-    container_name: jp_mailcathcer
-
-    image: schickling/mailcatcher
-
-    ports:
-      - 3335:1080

@@ -18,6 +18,7 @@ Route::post('/vote/{id}', [HelloController::class, 'voteStore'])->name('vote.sto
 // 万物詳細ページ表示
 Route::get('/details/{things}', [HelloController::class, 'show'])->name('details');
 Route::post('/details/{things}', [HelloController::class, 'commentStore'])->name('comment');
+Route::get('/detail/検索結果', [explainController::class, 'show_sr'])->name('sr.show');
 // 検索
 Route::get('/things/search', [HelloController::class, 'things_search']);
 Route::get('/tags/search', [HelloController::class, 'tags_search']);

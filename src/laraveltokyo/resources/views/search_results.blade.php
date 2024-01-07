@@ -9,7 +9,7 @@
                 @if ($posts->isEmpty())
                 <div class="text-center">
                     <h1>
-                        <a href="/details/検索結果">検索結果</a>がありません。
+                        <a href="{{ route('sr.show')}}">検索結果</a>がありません。
                     </h1>
                 </div>
                 @else

@@ -9,6 +9,18 @@
     <link rel="shortcut icon" href="{{ asset('images/アイコン.png') }}" type="image/x-icon">
     <meta name="description" content="万物すべてを登録できる投票型ランキングサイト">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YGFNW23W5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4YGFNW23W5');
+    </script>
+
     <meta property="og:url" content="https://banbutsu.xyz/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="万物ランキング" />

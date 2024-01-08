@@ -5,7 +5,7 @@
 
 @include('layouts.notification')
 
-<!-- テーブル -->
+{{-- テーブル--}}
 <div class="container">
     <div class="row">
         <div class="col-lg-9 mx-auto">
@@ -49,9 +49,8 @@
 
 
 
-<!-- モーダル -->
+{{-- モーダル --}}
 @foreach($posts as $post)
-<!-- モーダルに一意のIDを割り当て -->
 <div class="modal fade" id="staticBackdrop-{{ $post->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-{{ $post->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -67,7 +66,6 @@
                     <input type="range" name="vote" class="form-range" min="1" max="30" value="15" id="voteRange-{{ $post->id }}" oninput="updateValue(this.value, '{{ $post->id }}')">
                     <span id="rangeValue-{{ $post->id }}"></span>
 
-                    <!-- originフィールドを追加 -->
                     <input type="hidden" name="origin" value="top">
                 </div>
                 <div class="modal-footer">

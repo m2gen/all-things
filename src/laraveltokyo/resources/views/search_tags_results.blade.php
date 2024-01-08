@@ -30,7 +30,6 @@
 </div>
 
 
-<!-- 人気タグ読み込み -->
 @include('layouts.popTag2')
 
 @endsection

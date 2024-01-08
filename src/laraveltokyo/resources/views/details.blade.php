@@ -5,7 +5,6 @@
 @include('layouts.notification')
 
 <div class="container mb-5">
-    <!-- 万物見出しなど -->
     <div class="row">
         <div class="col-lg-9 mx-auto">
             <div class="mb-3">
@@ -37,7 +36,6 @@
                     更新日：{{ $posts->updated_at->format('Y-m-d') }}
                 </li>
             </ul>
-            <!-- モーダル -->
             <div class="modal fade" id="staticBackdrop-{{ $posts->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-{{ $posts->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -63,12 +61,10 @@
                 </div>
             </div>
 
-            <!-- お気に入り登録・コメント遷移ボタン -->
             <div class="text-end h5">
                 <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#scrollspyHeading1">コメント</a>
             </div>
 
-            <!-- お気に入り機能 -->
             @if ($favorites)
             <form action="{{ route('favorites.delete', ['id' => $posts->id]) }}" method="POST" class="mb-4">
                 <input type="hidden" name="post_id" value="{{$posts->id}}">
@@ -88,7 +84,7 @@
             </form>
             @endif
 
-            <!-- タグ・概要 -->
+            {{-- タグ概要 --}}
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="1">
                 <div class="mb-5">
                     <div class="mb-3">
@@ -102,7 +98,7 @@
                         <p>{!! nl2br(e($posts->overview)) !!}</p>
                     </div>
                 </div>
-                <!-- コメント -->
+                {{-- コメント --}}
                 <div class="row mb-3">
                     <div class="col-lg-9 mx-auto">
                         <p class="h5" id="scrollspyHeading1">コメント（{{ number_format($comes->count()) }}件）</p>
@@ -151,6 +147,9 @@
 @push('style')
 <style>
     input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 25px;
+        width: 25px;
         background: #e6b422;
     }
 

@@ -5,11 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src="{{ asset('/js/top.js') }}"></script>
     <link rel="shortcut icon" href="{{ asset('images/アイコン.png') }}" type="image/x-icon">
     <meta name="description" content="万物すべてを登録できる投票型ランキングサイト">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YGFNW23W5"></script>
+    <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+
+     gtag('config', 'G-4YGFNW23W5');
+    </script>
 
     <meta property="og:url" content="https://banbutsu.xyz/" />
     <meta property="og:type" content="website" />

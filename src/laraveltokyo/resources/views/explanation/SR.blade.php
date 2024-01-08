@@ -5,7 +5,6 @@
 @include('layouts.notification')
 
 <div class="container mb-5">
-    <!-- 万物見出しなど -->
     <div class="row">
         <div class="col-lg-9 mx-auto">
             <div class="mb-3">
@@ -35,7 +34,6 @@
                     更新日：1902-8-8
                 </li>
             </ul>
-            <!-- タグ・概要 -->
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="1">
                 <div class="mb-5">
                     <div class="mb-3">

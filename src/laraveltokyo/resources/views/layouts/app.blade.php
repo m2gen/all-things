@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src="{{ asset('/js/top.js') }}"></script>
     <link rel="shortcut icon" href="{{ asset('images/アイコン.png') }}" type="image/x-icon">
     <meta name="description" content="万物すべてを登録できる投票型ランキングサイト">

@@ -18,3 +18,8 @@ yarn-error.log
 /.idea
 /.vscode
 ./docker/db/data
+*.log
+*.sqlite
+.htaccess
+/storage
+/config

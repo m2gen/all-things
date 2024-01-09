@@ -17,7 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-./docker/db/prod_data
+./docker/db/data
 *.log
 *.sqlite
 .htaccess

@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+./docker/db/prod_data
+*.log
+*.sqlite
+.htaccess
+/storage
+/config
+
